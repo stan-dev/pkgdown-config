@@ -7,6 +7,8 @@ Description: This package is a template package, built off of the Stan
     Quarto styling. Exclusively for use styling websites for R packages in
     the Stan ecosystem.
 License: BSD_3_clause + file LICENSE
+URL: https://visruthsk.github.io/pkgdownConfig
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Config/Needs/website: VisruthSK/pkgdownConfig
