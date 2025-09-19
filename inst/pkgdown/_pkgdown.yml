@@ -1,6 +1,15 @@
 template:
   bootstrap: 5
   light-switch: true
+  includes:
+    # necessary for Bluesky icon
+    in_header: |
+      <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+            referrerpolicy="no-referrer">
+
+  theme: solarized-light
+  theme-dark: ayu-mirage
 
   bslib:
     bg: "#FEFBF2"
@@ -9,14 +18,16 @@ template:
     link-color: "#3E8EBC"
     code-bg: "#FEFCF9"
     code-color: "#053A42"
+    body-secondary-color: "#ECE5Cf"
 
     navbar-light-bg: "#052744"
     navbar-light-color: "#F2E5BD"
     navbar-light-hover-color: "#F2E5BD"
-    navbar-light-active-color: "#F2E5BD"
+    navbar-light-active-color: "#93B0F1"
     navbar-light-brand-color: "#F2E5BD"
     navbar-light-brand-hover-color: "#F2E5BD"
 
+    # DARK THEME
     body-bg-dark: "#181818"
     body-color-dark: "#FAF1E4"
     link-color-dark: "#AED1E4"
@@ -26,14 +37,15 @@ template:
     navbar-dark-bg: "#303030"
     navbar-dark-color: "#FAF1E4"
     navbar-dark-hover-color: "#FAF1E4"
-    navbar-dark-active-color: "#FAF1E4"
+    navbar-dark-active-color: "#AED1E4"
     navbar-dark-brand-color: "#FAF1E4"
     navbar-dark-brand-hover-color: "#FAF1E4"
 
-  theme: nord
-  theme-dark: tango
+    # TODO: set fonts
+    # base_font: { google: "" }
+    # heading_font: { google: "" }
+    # code_font: { google: "" }
 
-# TODO: Configure the navbar to your liking.
 navbar:
   structure:
     left: [intro, reference, articles, otherpkgs, news, stan]
@@ -64,8 +76,8 @@ navbar:
       text: About Stan
       href: https://mc-stan.org/about/
     bluesky:
-      icon: fa-bluesky
-      aria-label: Visit our BlueSky profile
+      icon: "fa-brands fa-bluesky"
+      aria-label: Visit our Bluesky profile
       href: https://bsky.app/profile/did:plc:qznndgdnkem2yryu7ipqbpv7
     twitter:
       icon: fa-twitter
