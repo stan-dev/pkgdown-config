@@ -1,1 +1,79 @@
-# TODO: Copy over from root _pkgdown when done experimenting/published to GH
+template:
+  bootstrap: 5
+  light-switch: true
+
+  bslib:
+    bg: "#FEFBF2"
+    fg: "#052744"
+    primary: "#3E8EBC"
+    link-color: "#3E8EBC"
+    code-bg: "#FEFCF9"
+    code-color: "#053A42"
+
+    navbar-light-bg: "#052744"
+    navbar-light-color: "#F2E5BD"
+    navbar-light-hover-color: "#F2E5BD"
+    navbar-light-active-color: "#F2E5BD"
+    navbar-light-brand-color: "#F2E5BD"
+    navbar-light-brand-hover-color: "#F2E5BD"
+
+    # Dark
+    body-bg-dark: "#181818"
+    body-color-dark: "#FAF1E4"
+    link-color-dark: "#AED1E4"
+    code-bg-dark: "#242424"
+    code-color-dark: "#FEFCF9"
+
+    navbar-dark-bg: "#303030"
+    navbar-dark-color: "#FAF1E4"
+    navbar-dark-hover-color: "#FAF1E4"
+    navbar-dark-active-color: "#FAF1E4"
+    navbar-dark-brand-color: "#FAF1E4"
+    navbar-dark-brand-hover-color: "#FAF1E4"
+
+  theme: nord
+  theme-dark: tango
+
+navbar:
+  structure:
+    left: [intro, reference, articles, otherpkgs, news]
+    right: [search, bluesky, twitter, forum, github, lightswitch]
+  components:
+    otherpkgs:
+      text: Other Packages
+      menu:
+        - text: bayesplot
+          href: https://mc-stan.org/bayesplot
+        - text: cmdstanr
+          href: https://mc-stan.org/cmdstanr
+        - text: loo
+          href: https://mc-stan.org/loo
+        - text: posterior
+          href: https://mc-stan.org/posterior
+        - text: projpred
+          href: https://mc-stan.org/projpred
+        - text: rstan
+          href: https://mc-stan.org/rstan
+        - text: rstanarm
+          href: https://mc-stan.org/rstanarm
+        - text: rstantools
+          href: https://mc-stan.org/rstantools
+        - text: shinystan
+          href: https://mc-stan.org/shinystan
+    bluesky:
+      icon: fa-bluesky
+      aria-label: Visit our BlueSky profile
+      href: https://bsky.app/profile/did:plc:qznndgdnkem2yryu7ipqbpv7
+    twitter:
+      icon: fa-twitter
+      aria-label: Visit our Twitter profile
+      href: https://twitter.com/mcmc_stan
+    forum:
+      icon: fa-users
+      aria-label: Visit our forums
+      href: https://discourse.mc-stan.org/
+
+home:
+  links:
+    - text: Ask a question
+      href: http://discourse.mc-stan.org/
