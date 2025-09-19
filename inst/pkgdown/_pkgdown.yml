@@ -17,7 +17,6 @@ template:
     navbar-light-brand-color: "#F2E5BD"
     navbar-light-brand-hover-color: "#F2E5BD"
 
-    # Dark
     body-bg-dark: "#181818"
     body-color-dark: "#FAF1E4"
     link-color-dark: "#AED1E4"
@@ -34,9 +33,10 @@ template:
   theme: nord
   theme-dark: tango
 
+# TODO: Configure the navbar to your liking.
 navbar:
   structure:
-    left: [intro, reference, articles, otherpkgs, news]
+    left: [intro, reference, articles, otherpkgs, news, stan]
     right: [search, bluesky, twitter, forum, github, lightswitch]
   components:
     otherpkgs:
@@ -60,6 +60,9 @@ navbar:
           href: https://mc-stan.org/rstantools
         - text: shinystan
           href: https://mc-stan.org/shinystan
+    stan:
+      text: About Stan
+      href: https://mc-stan.org/about/
     bluesky:
       icon: fa-bluesky
       aria-label: Visit our BlueSky profile
