@@ -1,0 +1,22 @@
+// Fix code chunk backgrounds and text color
+html[data-bs-theme="light"] {
+  div.sourceCode > pre,
+  pre.sourceCode,
+  pre.downlit,
+  pre {
+    background-color: $code-bg !important;
+  }
+}
+
+html[data-bs-theme="dark"] {
+  div.sourceCode > pre,
+  pre.sourceCode,
+  pre.downlit,
+  pre {
+    background-color: $code-bg-dark !important;
+  }
+}
+
+pre {
+  color: var(--bs-body-color);
+}

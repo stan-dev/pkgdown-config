@@ -8,10 +8,13 @@ template:
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
             referrerpolicy="no-referrer">
 
-  theme: solarized-light
-  theme-dark: ayu-mirage
+  # syntax highlighting
+  theme: tango
+  theme-dark: nord
 
   bslib:
+    # LIGHT THEME
+
     bg: "#FEFBF2"
     fg: "#052744"
     primary: "#3E8EBC"
@@ -20,6 +23,7 @@ template:
     code-color: "#053A42"
     body-secondary-color: "#ECE5Cf"
 
+    # navbar colors
     navbar-light-bg: "#052744"
     navbar-light-color: "#F2E5BD"
     navbar-light-hover-color: "#F2E5BD"
@@ -28,12 +32,14 @@ template:
     navbar-light-brand-hover-color: "#F2E5BD"
 
     # DARK THEME
+
     body-bg-dark: "#181818"
     body-color-dark: "#FAF1E4"
     link-color-dark: "#AED1E4"
     code-bg-dark: "#242424"
     code-color-dark: "#FEFCF9"
 
+    # navbar colors
     navbar-dark-bg: "#303030"
     navbar-dark-color: "#FAF1E4"
     navbar-dark-hover-color: "#FAF1E4"
