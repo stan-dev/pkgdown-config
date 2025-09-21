@@ -8,4 +8,4 @@ Styling for Stan sites built with pkgdown. Do not use this theme in a non-Stan p
 
 ## How to Use
 
-See the vignette.
+See [the vignette](https://visruthsk.github.io/pkgdownConfig/articles/Setup.html).

@@ -10,6 +10,12 @@ knitr:
     comment: '#>'
 ---
 
+If you haven't started a `pkgdown` site yet, initialize it.
+
+```r
+usethis::use_pkgdown()
+```
+
 In `./_pkgdown.yml` add the contributed package:
 
 ```yaml
