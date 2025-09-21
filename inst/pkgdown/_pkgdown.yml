@@ -5,7 +5,7 @@ template:
     # add logo to navbar
     before_title: |
       <a class="navbar-brand me-2" href="index.html">
-        <img src="logo.svg" class="stan-logo" alt="Stan blue hex logo">
+        <img src="/logo.svg" class="stan-logo" alt="Stan blue hex logo">
       </a>
     # necessary for Bluesky icon
     in_header: |

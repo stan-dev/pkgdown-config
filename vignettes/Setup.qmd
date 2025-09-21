@@ -20,7 +20,7 @@ template:
 Point to this repository in `DESCRIPTION` to download the theme automatically.
 
 ```yaml
-Config/Needs/website: VisruthSK/Stan_pkgdown_config
+Config/Needs/website: VisruthSK/pkgdownConfig
 ```
 
 If for some reason the favicons don't build, find logo.svg in your build directory, and run `pkgdown::build_favicons($PATH_TO_LOGO)` once to build the favicons.
