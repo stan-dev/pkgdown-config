@@ -8,7 +8,7 @@ html[data-bs-theme="light"] {
   }
   #search-input {
     &::placeholder {
-      color: var(--body-secondary-color);
+      color: var(--body-secondary-color) !important;
     }
   }
 }
@@ -27,6 +27,6 @@ pre {
 }
 
 .navbar .navbar-brand .stan-logo {
-  height: 25px;
+  height: 25px !important;
   width: auto;
 }
