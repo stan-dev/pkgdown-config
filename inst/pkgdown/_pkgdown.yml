@@ -2,8 +2,11 @@ template:
   bootstrap: 5
   light-switch: true
   includes:
+    # add logo to navbar
     before_title: |
-      <img src="logo.svg" class="stan-logo" alt="Stan blue hex logo">
+      <a class="navbar-brand me-2" href="index.html">
+        <img src="logo.svg" class="stan-logo" alt="Stan blue hex logo">
+      </a>
     # necessary for Bluesky icon
     in_header: |
       <link rel="stylesheet"
@@ -54,10 +57,9 @@ template:
     navbar-dark-brand-color: "#FAF1E4"
     navbar-dark-brand-hover-color: "#FAF1E4"
 
-    # TODO: set fonts
-    # base_font: { google: "" }
-    # heading_font: { google: "" }
-    # code_font: { google: "" }
+    base_font: { google: "Source Sans 3" }
+    heading_font: { google: "Source Sans 3" }
+    code_font: { google: "Source Code Pro" }
 
 navbar:
   structure:
