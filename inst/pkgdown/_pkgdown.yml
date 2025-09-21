@@ -5,14 +5,20 @@ template:
     # add logo to navbar
     before_title: |
       <a class="navbar-brand me-2" href="index.html">
-        <img src="/logo.svg" class="stan-logo" alt="Stan blue hex logo">
+        <img src="{{#site}}{{root}}{{/site}}logo.svg" class="stan-logo" alt="Stan blue hex logo">
       </a>
-    # necessary for Bluesky icon
+    # loads fontawesome 7; pkgdown already loads 6. replace with template if wanted.
+    # forces favicons since pkgdown doesn't know they're there. could also do with template.
+    # problem with template is {{{headdeps}}}
     in_header: |
       <link rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
             referrerpolicy="no-referrer">
-            <link rel="icon" href="favicon.ico" sizes="any">
+      <link rel="icon" type="image/png" sizes="96x96" href="{{#site}}{{root}}{{/site}}favicon-96x96.png">
+      <link rel="icon" type=”image/svg+xml” href="{{#site}}{{root}}{{/site}}favicon.svg">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{#site}}{{root}}{{/site}}apple-touch-icon.png">
+      <link rel="icon" sizes="any" href="{{#site}}{{root}}{{/site}}favicon.ico" >
+      <link rel="manifest" href="{{#site}}{{root}}{{/site}}site.webmanifest">
 
   # syntax highlighting
   theme: tango

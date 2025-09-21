@@ -7,7 +7,7 @@ Description: This package is a template package, built off of the Stan
     Quarto styling. Exclusively for use styling `pkgdown` websites in
     the Stan ecosystem.
 License: BSD_3_clause + file LICENSE
-URL: https://visruthsk.github.io/pkgdownConfig
+URL: https://visruthsk.github.io/pkgdownConfig, https://visruthsk.github.io/pkgdownConfig
 Config/Needs/website: VisruthSK/pkgdownConfig
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
