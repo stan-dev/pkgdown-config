@@ -2,6 +2,8 @@ template:
   bootstrap: 5
   light-switch: true
   includes:
+    before_title: |
+      <img src="logo.svg" class="stan-logo" alt="Stan blue hex logo">
     # necessary for Bluesky icon
     in_header: |
       <link rel="stylesheet"
