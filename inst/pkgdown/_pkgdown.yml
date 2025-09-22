@@ -1,12 +1,6 @@
 template:
   bootstrap: 5
   light-switch: true
-  includes:
-    # add logo to navbar
-    before_title: |
-      <a class="navbar-brand me-2" href="index.html">
-        <img src="{{#site}}{{root}}{{/site}}logo.svg" class="stan-logo" alt="Stan blue hex logo">
-      </a>
 
   # syntax highlighting
   theme: tango

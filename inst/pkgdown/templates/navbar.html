@@ -1,0 +1,45 @@
+<!-- upstream: inst/BS5/templates/navbar.html; pkgdown-version: 2.1.3, fe04924 -->
+<!-- https://github.com/r-lib/pkgdown/tree/fe04924b3df129bea60ac871614b01d87bcae147 -->
+{{#navbar}}
+<nav class="navbar navbar-expand-lg fixed-top {{#bg}}bg-{{{.}}}{{/bg}}" {{#type}}data-bs-theme="{{{.}}}" {{/type}}
+  aria-label="{{#translate}}{{site_nav}}{{/translate}}">
+  <div class="container">
+
+    {{#includes}}{{{before_title}}}{{/includes}}
+    <a class="navbar-brand me-2" href="{{#site}}{{root}}{{/site}}index.html">
+      <!-- Add Stan logo -->
+      <picture>
+        <source type="image/svg+xml" srcset="{{#site}}{{root}}{{/site}}logo.svg">
+        <img src="{{#site}}{{root}}{{/site}}logo.png" class="stan-logo" alt="Stan blue hex logo">
+      </picture>
+      {{#site}}{{title}}{{/site}}
+    </a>
+
+    <small class="nav-text {{#development}}text-{{version_label}}{{/development}} me-auto" data-bs-toggle="tooltip"
+      data-bs-placement="bottom"
+      title="{{#development}}{{version_tooltip}}{{/development}}">{{#package}}{{version}}{{/package}}</small>
+
+    {{#includes}}{{{before_navbar}}}{{/includes}}
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar"
+      aria-controls="navbar" aria-expanded="false" aria-label="{{#translate}}{{toggle_nav}}{{/translate}}">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      {{#left}}
+      <ul class="navbar-nav me-auto">
+        {{{.}}}
+      </ul>
+      {{/left}}
+
+      {{#right}}
+      <ul class="navbar-nav">
+        {{{.}}}
+      </ul>
+      {{/right}}
+    </div>
+
+    {{#includes}}{{{after_navbar}}}{{/includes}}
+  </div>
+</nav>
+{{/navbar}}

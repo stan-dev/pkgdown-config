@@ -1,0 +1,26 @@
+---
+title: "Quirks"
+vignette: >
+  %\VignetteIndexEntry{Quirks}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+Due to how the theme is written, there are some thing you should note.
+
+This theme uses partials to override the default templates for the navbar and for `head`. These are both pinned at a [specific commit](https://github.com/r-lib/pkgdown/tree/fe04924b3df129bea60ac871614b01d87bcae147). If you notice that the theme is behind upstream, please open an issue.
+
+Since the theme overrides the navbar partial to insert the logo, anything HTML put in `before-title` will appear before the logo.
+
+``` yaml
+template:
+  includes:
+    # before_title_AND_LOGO
+    before_title: |
+      My_cool_html
+```
+I left this in so that the website wouldn't fail silently and eat your input, but I hazard that you won't want to put anything here.
