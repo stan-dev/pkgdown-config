@@ -2,6 +2,9 @@ template:
   bootstrap: 5
   light-switch: true
 
+  # don't use mathml
+  math-rendering: mathjax
+
   # syntax highlighting
   theme: tango
   theme-dark: nord

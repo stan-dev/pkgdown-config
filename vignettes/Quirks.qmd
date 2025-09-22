@@ -12,7 +12,11 @@ knitr:
 
 Due to how the theme is written, there are some thing you should note.
 
+## Templates
+
 This theme uses partials to override the default templates for the navbar and for `head`. These are both pinned at a [specific commit](https://github.com/r-lib/pkgdown/tree/fe04924b3df129bea60ac871614b01d87bcae147). If you notice that the theme is behind upstream, please open an issue.
+
+### before-title
 
 Since the theme overrides the navbar partial to insert the logo, anything HTML put in `before-title` will appear before the logo.
 
@@ -23,4 +27,16 @@ template:
     before_title: |
       My_cool_html
 ```
-I left this in so that the website wouldn't fail silently and eat your input, but I hazard that you won't want to put anything here.
+
+I left the functionality in so that the website wouldn't fail silently and eat your input, but I hazard that you won't want to put anything before the logo. If you want to put things in `before_title` you should copy my `navbar.HTML` into your package's pkgdown configuration and edit it, putting HTML where it says `{{#includes}}{{{before_navbar}}}{{/includes}}`.
+
+## Logs Say Image Missing
+
+This template copies over the Stan hex logo to root and references that manually in the templates, which `pkgdown` doens't like. As such, you'll get errors like
+
+```         
+Missing images in .github/CONTRIBUTING.md: logo.png
+ℹ pkgdown can only use images in man/figures and vignettes
+```
+
+If you actually navigate to that page the logo will be there. I may fix/change this by referencing man/figures/logo (which is also copied over).
