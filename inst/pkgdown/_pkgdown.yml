@@ -15,7 +15,7 @@ template:
     link-color: "#3E8EBC"
     code-bg: "#FEFCF9"
     code-color: "#053A42"
-    body-secondary-color: "#ECE5Cf"
+    body-secondary-color: "#053A42"
 
     # navbar colors
     navbar-light-bg: "#052744"
@@ -47,9 +47,12 @@ template:
 
 navbar:
   structure:
-    left: [intro, reference, articles, otherpkgs, news, stan]
+    left: [home, reference, articles, news, otherpkgs, stan]
     right: [search, bluesky, twitter, forum, github, lightswitch]
   components:
+    home:
+      icon: fa-home fa-lg
+      href: index.html
     otherpkgs:
       text: Other Packages
       menu:
