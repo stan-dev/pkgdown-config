@@ -4,8 +4,8 @@ Built in the vein of [quarto-config](https://github.com/stan-dev/quarto-config).
 
 Styling for Stan sites built with pkgdown. Do not use this theme in a non-Stan package.
 
+See [the vignette](https://visruthsk.github.io/pkgdownConfig/articles/Setup.html) for setup instructions.
+
+For any further concerns/help/anything, open an issue and/or ping me on the Stan Slack.
+
 [Source](https://github.com/VisruthSK/pkgdownConfig/).
-
-## How to Use
-
-See [the vignette](https://visruthsk.github.io/pkgdownConfig/articles/Setup.html).
