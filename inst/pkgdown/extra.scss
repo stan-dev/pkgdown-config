@@ -11,6 +11,9 @@ html[data-bs-theme="light"] {
       color: var(--body-secondary-color) !important;
     }
   }
+  .navbar {
+    --bs-secondary-color: #ece5cf;
+  }
 }
 
 html[data-bs-theme="dark"] {

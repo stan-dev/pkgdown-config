@@ -52,6 +52,7 @@ navbar:
   components:
     home:
       icon: fa-home fa-lg
+      aria-label: Go to homepage
       href: index.html
     otherpkgs:
       text: Other Packages
