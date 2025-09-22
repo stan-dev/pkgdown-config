@@ -31,7 +31,7 @@ Config/Needs/website: VisruthSK/pkgdownConfig
 
 Now you should be good to run `pkgdown::build_site()`!
 
-If for some reason the favicons don't get copied over, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg), and run `pkgdown::build_favicons($PATH_TO_LOGO)` once to build the favicons.
+If for some reason the favicons don't get copied over, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg), and run `pkgdown::build_favicons()` once to build the favicons. If you already have favicons, 
 
 Note that the favicons and logo should be copied into your build directory and ideally should be hooked in automatically. If you can't find the logo, you can download it from [here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg) and follow the same steps above.
 
