@@ -20,13 +20,13 @@ In `./_pkgdown.yml` add the contributed package:
 
 ```yaml
 template:
-  package: pkgdownConfig
+  package: pkgdown-config
 ```
 
 Point to this repository in `DESCRIPTION` to download the theme automatically.
 
 ```yaml
-Config/Needs/website: VisruthSK/pkgdownConfig
+Config/Needs/website: pkgdown-config
 ```
 
 Now you should be good to run `pkgdown::build_site()`!

@@ -4,3 +4,4 @@
 ^\.github$
 ^vignettes/\.quarto$
 ^vignettes/*_files$
+^LICENSE\.md$
