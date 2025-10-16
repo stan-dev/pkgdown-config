@@ -8,7 +8,6 @@ Description: This package is a template package, built off of the Stan
     the Stan ecosystem.
 License: BSD_3_clause + file LICENSE
 URL: https://mc-stan.org/pkgdown-config, https://mc-stan.org/pkgdown-config
-Config/Needs/website: stan-dev/pkgdown-config
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
