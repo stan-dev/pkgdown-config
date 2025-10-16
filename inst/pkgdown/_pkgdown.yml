@@ -51,7 +51,7 @@ template:
 navbar:
   structure:
     left: [home, reference, articles, news, otherpkgs, stan]
-    right: [search, bluesky, twitter, forum, github, lightswitch]
+    right: [search, bluesky, forum, github, lightswitch]
   components:
     home:
       icon: fa-home fa-lg
@@ -85,10 +85,6 @@ navbar:
       icon: "fa-brands fa-bluesky"
       aria-label: Visit our Bluesky profile
       href: https://bsky.app/profile/did:plc:qznndgdnkem2yryu7ipqbpv7
-    twitter:
-      icon: fa-twitter
-      aria-label: Visit our Twitter profile
-      href: https://twitter.com/mcmc_stan
     forum:
       icon: fa-users
       aria-label: Visit our forums
