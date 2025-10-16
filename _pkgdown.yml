@@ -1,3 +1,3 @@
-url: https://visruthsk.github.io/pkgdownConfig/
+url: https://mc-stan.org/pkgdown-config/
 template:
-  package: pkgdownConfig
+  package: pkgdown-config
