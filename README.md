@@ -1,11 +1,9 @@
 # Stan pkgdown Configuration <a href="https://visruthsk.github.io/pkgdownConfig"><img src="man/figures/logo.svg" align="right" height="139" alt="pkgdownConfig website" /></a>
 
-Built in the vein of [quarto-config](https://github.com/stan-dev/quarto-config).
+Built in the vein of [stan-dev/quarto-config](https://github.com/stan-dev/quarto-config).
 
 Styling for Stan sites built with pkgdown. Do not use this theme in a non-Stan package.
 
-See [the vignette](https://visruthsk.github.io/pkgdownConfig/articles/Setup.html) for setup instructions.
+See the vignettes for setup instructions.
 
-For any further concerns/help/anything, open an issue and/or ping me on the Stan Slack.
-
-[Source](https://github.com/VisruthSK/pkgdownConfig/).
+For any further concerns or help, open an issue and/or ping `@Visruth` on the Stan Slack.
