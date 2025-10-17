@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   Quirks: Quirks.html
   Setup: Setup.html
-last_built: 2025-10-17T05:46Z
+last_built: 2025-10-17T05:22Z
 urls:
   reference: https://mc-stan.org/pkgdown-config/reference
   article: https://mc-stan.org/pkgdown-config/articles
