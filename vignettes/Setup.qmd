@@ -20,7 +20,7 @@ In `./_pkgdown.yml` add the contributed package:
 
 ```yaml
 template:
-  package: pkgdownConfig
+  package: pkgdownconfig
 ```
 
 Point to this repository in `DESCRIPTION` to download the theme automatically.
