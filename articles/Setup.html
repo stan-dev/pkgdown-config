@@ -121,15 +121,19 @@
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_pkgdown</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>In <code>./_pkgdown.yml</code> add the contributed package:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> pkgdown-config</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> pkgdownConfig</span></span></code></pre></div>
 <p>Point to this repository in <code>DESCRIPTION</code> to download the theme automatically.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> pkgdown-config</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> stan-dev/pkgdown-config</span></span></code></pre></div>
+<p>Optionally, you should be able to pin a specific version of the template with a tag or commit:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> stan-dev/pkgdown-config@v1.0.1</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> stan-dev/pkgdown-config@COMMITHASH</span></span></code></pre></div>
 <p>Now you should be good to run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>!</p>
-<p>If for some reason the favicons don’t get copied over, download <a href="https://github.com/stan-dev/logos/blob/master/logo.svg" class="external-link">logo.svg</a>, and run <code><a href="https://pkgdown.r-lib.org/reference/build_favicons.html" class="external-link">pkgdown::build_favicons()</a></code> once to build the favicons. If you already have favicons,</p>
+<p>If for some reason the favicons don’t get copied over, download <a href="https://github.com/stan-dev/logos/blob/master/logo.svg" class="external-link">logo.svg</a>, and run <code><a href="https://pkgdown.r-lib.org/reference/build_favicons.html" class="external-link">pkgdown::build_favicons()</a></code> once to build the favicons. If you already have favicons, the template my overwrite them to save a copy and ping <code>@Visruth</code> on the Stan Slack.</p>
 <p>Note that the favicons and logo should be copied into your build directory and ideally should be hooked in automatically. If you can’t find the logo, you can download it from <a href="https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg" class="external-link">here</a> and follow the same steps above.</p>
 <p>If you want the hex in your README, edit the <code>README.MD</code>. You can take a look at this package’s to get an idea of what you need to do (repeated below):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># pkgdownConfig &lt;a href="https://visruthsk.github.io/pkgdownConfig"&gt;&lt;img src="man/figures/logo.svg" align="right" height="139" alt="pkgdownConfig website" /&gt;&lt;/a&gt;</span></span></code></pre></div>
-<p>For any further concerns/help/anything, open an issue and/or ping me on the Stan Slack.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># pkgdownConfig &lt;a href="https://mc-stan.org/pkgdown-config"&gt;&lt;img src="man/figures/logo.svg" align="right" height="139" alt="pkgdownConfig website" /&gt;&lt;/a&gt;</span></span></code></pre></div>
+<p>For any further concerns/help/anything, open an issue and/or ping <code>@Visruth</code> on the Stan Slack.</p>
 
 
 
