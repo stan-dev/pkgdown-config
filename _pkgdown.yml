@@ -1,3 +1,5 @@
 url: https://mc-stan.org/pkgdown-config
 template:
   package: pkgdownconfig
+development:
+  mode: auto
