@@ -5,7 +5,7 @@
 <!-- upstream: inst/BS5/templates/head.html; pkgdown-version: 2.1.3, fe04924 --><!-- https://github.com/r-lib/pkgdown/tree/fe04924b3df129bea60ac871614b01d87bcae147 --><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Setup • pkgdownConfig</title>
+<title>Setup • pkgdownconfig</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -27,7 +27,7 @@
 <script src="Setup_files/libs/quarto-html/popper.min.js"></script><script src="Setup_files/libs/quarto-html/tippy.umd.min.js"></script><link href="Setup_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="Setup_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Setup">
-<meta property="og:image" content="https://visruthsk.github.io/pkgdownConfig/logo.svg">
+<meta property="og:image" content="https://mc-stan.org/pkgdown-config/logo.svg">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -41,10 +41,10 @@
     <a class="navbar-brand me-2" href="../index.html">
       <!-- Add Stan logo -->
       <picture><source type="image/svg+xml" srcset="../logo.svg"><img src="../logo.png" class="stan-logo" alt="Stan blue hex logo"></source></picture>
-      pkgdownConfig
+      pkgdownconfig
     </a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -121,9 +121,9 @@
 <code class="sourceCode R"><span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">use_pkgdown</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>In <code>./_pkgdown.yml</code> add the contributed package:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">template</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> pkgdownConfig</span></span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">package</span><span class="kw">:</span><span class="at"> pkgdown-config</span></span></code></pre></div>
 <p>Point to this repository in <code>DESCRIPTION</code> to download the theme automatically.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> VisruthSK/pkgdownConfig</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Config/Needs/website</span><span class="kw">:</span><span class="at"> pkgdown-config</span></span></code></pre></div>
 <p>Now you should be good to run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code>!</p>
 <p>If for some reason the favicons don’t get copied over, download <a href="https://github.com/stan-dev/logos/blob/master/logo.svg" class="external-link">logo.svg</a>, and run <code><a href="https://pkgdown.r-lib.org/reference/build_favicons.html" class="external-link">pkgdown::build_favicons()</a></code> once to build the favicons. If you already have favicons,</p>
 <p>Note that the favicons and logo should be copied into your build directory and ideally should be hooked in automatically. If you can’t find the logo, you can download it from <a href="https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg" class="external-link">here</a> and follow the same steps above.</p>
