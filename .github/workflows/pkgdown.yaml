@@ -38,7 +38,7 @@ jobs:
           needs: website
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = TRUE, install = FALSE)
+        run: pkgdown::build_site_github_pages(clean = FALSE, new_process = TRUE, install = FALSE)
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
@@ -47,3 +47,4 @@ jobs:
         with:
           branch: gh-pages
           folder: docs
+          clean: false
