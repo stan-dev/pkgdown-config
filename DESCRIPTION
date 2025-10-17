@@ -1,6 +1,6 @@
 Package: pkgdownconfig
 Title: Stan pkgdown Website Styling
-Version: 2.0.1:9000
+Version: 2.0.1.9000
 Authors@R: 
     person("Visruth", "Srimath Kandali", , "public@visruth.com", role = c("aut", "cre"))
 Description: This package is a template package, built off of the Stan
