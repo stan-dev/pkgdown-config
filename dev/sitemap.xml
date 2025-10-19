@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://mc-stan.org/pkgdown-config/dev/LICENSE-text.html</loc></url>
 <url><loc>https://mc-stan.org/pkgdown-config/dev/LICENSE.html</loc></url>
+<url><loc>https://mc-stan.org/pkgdown-config/dev/articles/GitHub Action.html</loc></url>
 <url><loc>https://mc-stan.org/pkgdown-config/dev/articles/Quirks.html</loc></url>
 <url><loc>https://mc-stan.org/pkgdown-config/dev/articles/Setup.html</loc></url>
 <url><loc>https://mc-stan.org/pkgdown-config/dev/articles/index.html</loc></url>
