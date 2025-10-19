@@ -37,7 +37,20 @@ Config/Needs/website: stan-dev/pkgdown-config@v1.0.1
 Config/Needs/website: stan-dev/pkgdown-config@COMMITHASH
 ```
 
-Now you should be good to run `pkgdown::build_site()`!
+For local development, you need to install the package before you can build the site:
+
+```r
+pak::pak("stan-dev/pkgdown-config")
+pkgdown::build_site()
+```
+
+If you're getting an error about dependency resolution when using a GitHub Action to automatically build your pkgdown site, remove the `Config/Needs/website:` line from DESCRIPTION and add use the R dependencies step like [here]("https://mc-stan.org/pkgdown-config/articles/GitHub Action"):
+
+```yaml
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::., stan-dev/pkgdown-config
+```
 
 If for some reason the favicons don't get copied over, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg), and run `pkgdown::build_favicons()` once to build the favicons. If you already have favicons, the template my overwrite them to save a copy and ping `@Visruth` on the Stan Slack.
 
