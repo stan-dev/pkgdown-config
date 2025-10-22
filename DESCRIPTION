@@ -9,6 +9,7 @@ Description: This package is a template package, built off of the Stan
 License: BSD_3_clause + file LICENSE
 URL: https://mc-stan.org/pkgdown-config,
     https://mc-stan.org/pkgdown-config
+BugReports: https://github.com/stan-dev/pkgdown-config/issues/
 Suggests: 
     knitr,
     quarto
