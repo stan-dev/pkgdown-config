@@ -52,6 +52,38 @@ If you're getting an error about dependency resolution when using a GitHub Actio
           extra-packages: any::pkgdown, local::., stan-dev/pkgdown-config
 ```
 
+By default, the theme has a navbar item which has other Stan R packages--this is not smart and won't automatically drop the package you're using the theme in. If you don't want this, you should override that list in `_pkgdown.yml`. This example is taken from `loo`'s setup
+
+```yaml
+navbar:
+  title: "loo"
+
+  structure:
+    left: [home, vignettes, functions, news, pkgs, stan]
+    right: [search, bluesky, forum, github, lightswitch]
+
+  components:
+    pkgs:
+      text: Other Packages
+      menu:
+        - text: bayesplot
+          href: https://mc-stan.org/bayesplot
+        - text: cmdstanr
+          href: https://mc-stan.org/cmdstanr
+        - text: posterior
+          href: https://mc-stan.org/posterior
+        - text: projpred
+          href: https://mc-stan.org/projpred
+        - text: rstan
+          href: https://mc-stan.org/rstan
+        - text: rstanarm
+          href: https://mc-stan.org/rstanarm
+        - text: rstantools
+          href: https://mc-stan.org/rstantools
+        - text: shinystan
+          href: https://mc-stan.org/shinystan
+```
+
 If for some reason the favicons don't get copied over, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg), and run `pkgdown::build_favicons()` once to build the favicons. If you already have favicons, the template my overwrite them to save a copy and ping `@Visruth` on the Stan Slack.
 
 Note that the favicons and logo should be copied into your build directory and ideally should be hooked in automatically. If you can't find the logo, you can download it from [here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg) and follow the same steps above.
