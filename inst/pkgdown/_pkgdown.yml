@@ -50,13 +50,19 @@ template:
 
 navbar:
   structure:
-    left: [home, reference, articles, news, otherpkgs, stan]
+    left: [home, vignettes, functions, news, otherpkgs, stan]
     right: [search, bluesky, forum, github, lightswitch]
   components:
     home:
       icon: fa-home fa-lg
       aria-label: Go to homepage
       href: index.html
+    vignettes:
+      text: Vignettes
+      href: articles/index.html
+    functions:
+      text: Functions
+      href: reference/index.html
     otherpkgs:
       text: Other Packages
       menu:
