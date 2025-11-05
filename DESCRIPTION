@@ -2,7 +2,8 @@ Package: pkgdownconfig
 Title: Stan pkgdown Website Styling
 Version: 2.1.0
 Authors@R: 
-    person("Visruth", "Srimath Kandali", , "public@visruth.com", role = c("aut", "cre"))
+    person("Visruth", "Srimath Kandali", , "public@visruth.com", role = c("aut", "cre"), 
+            comment = c(ORCID = "0009-0005-9097-0688"))
 Description: This package is a template package, built off of the Stan
     Quarto styling. Exclusively for use styling `pkgdown` websites in the
     Stan ecosystem.
