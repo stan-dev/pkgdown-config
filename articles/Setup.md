@@ -1,5 +1,7 @@
 # Setup
 
+## General Setup
+
 If you haven’t started a `pkgdown` site yet, initialize it.
 
 ``` r
@@ -11,6 +13,16 @@ In `./_pkgdown.yml` add the contributed package:
 ``` yaml
 template:
   package: pkgdownconfig
+```
+
+Optional but highly recommended is to set development mode to auto and
+to build the site in root, like so:
+
+``` yaml
+destination: "."
+
+development:
+  mode: auto
 ```
 
 Point to this repository in `DESCRIPTION` to download the theme
@@ -83,21 +95,68 @@ navbar:
           href: https://mc-stan.org/shinystan
 ```
 
-If for some reason the favicons don’t get copied over, download
-[logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg), and
-run
+## Example (`shinystan`)
+
+Put together, here’s what a reasonable YAML looks like (truncated, taken
+from `shinystan`):
+
+``` yaml
+url: https://mc-stan.org/shinystan
+
+destination: "."
+
+development:
+  mode: auto
+
+template:
+  package: pkgdownconfig
+
+navbar:
+  title: "shinystan"
+
+  structure:
+    left: [home, vignettes, functions, news, pkgs, stan]
+    right: [search, bluesky, forum, github, lightswitch]
+
+  components:
+    pkgs:
+      text: Other Packages
+      menu:
+        - text: bayesplot
+          href: https://mc-stan.org/bayesplot
+        - text: cmdstanr
+          href: https://mc-stan.org/cmdstanr
+        - text: "loo"
+          href: https://mc-stan.org/loo
+        - text: posterior
+          href: https://mc-stan.org/posterior
+        - text: projpred
+          href: https://mc-stan.org/projpred
+        - text: rstan
+          href: https://mc-stan.org/rstan
+        - text: rstanarm
+          href: https://mc-stan.org/rstanarm
+        - text: rstantools
+          href: https://mc-stan.org/rstantools
+
+# now you can add articles, references, etc.
+```
+
+## Common Issues
+
+If for some reason the favicons don’t get copied over, check if you are
+defining favicons in `pkgdown/favicons`. In most cases you can delete
+everything in that folder–just delete the logo and favicons if you are
+worried. The template will hook in the correct favicon and logo. If its
+not working, download
+[logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to
+`/man/figures/logo.svg` and run
 [`pkgdown::build_favicons()`](https://pkgdown.r-lib.org/reference/build_favicons.html)
-once to build the favicons. If you already have favicons, the template
-my overwrite them to save a copy and ping `@Visruth` on the Stan Slack.
+once to build the favicons.
 
-Note that the favicons and logo should be copied into your build
-directory and ideally should be hooked in automatically. If you can’t
-find the logo, you can download it from
-[here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg)
-and follow the same steps above.
-
-If you want the hex in your README, edit the `README.MD`. You can take a
-look at this package’s to get an idea of what you need to do (repeated
+If you want the hex in your README (or if it isn’t working), make sure
+to edit the `README.MD` or however you generate it. You can take a look
+at this package’s to get an idea of what you need to do (repeated
 below):
 
 ``` md
