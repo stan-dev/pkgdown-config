@@ -1,0 +1,27 @@
+---
+title: "Test Vignette"
+vignette: >
+  %\VignetteIndexEntry{Setup}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+knitr:
+  opts_chunk:
+    collapse: true
+    comment: '#>'
+---
+
+```{r setup}
+knitr::opts_chunk$set(
+  eval = identical(Sys.getenv("NOT_CRAN"), "true")
+)
+```
+
+This is a testing vignette to make sure the conditional evaluation works.
+
+```{r}
+print("Starting expensive computation")
+Sys.sleep(5)
+print("Done!")
+```
+
+Above should print two lines.
