@@ -45,4 +45,4 @@ $K$ predictors, $\mathbf{X}$ is a $N \times K$ matrix of _centered_ predictors,
 $\mathbf{y}$ is a $N$-vector of outcomes and $\overline{y}$ is the sample mean 
 of the outcome.
 
-Boldsymbol should render, i.e. this should render properly: $\boldsymbol{\beta}$ vs $\beta$ and not error out.
+Bold symbols should render, i.e. this should render properly: $\boldsymbol{\beta}$ vs $\beta$ and not error out.
