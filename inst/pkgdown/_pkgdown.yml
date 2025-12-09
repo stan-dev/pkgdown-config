@@ -12,6 +12,18 @@ template:
   bslib:
     brand: pkgdown/_brand.yml
 
+    rules: |
+      @include color-mode(dark) {
+        --bs-body-bg: #{$brand-stan-gray-dark};
+        --bs-body-color: #{$brand-stan-cream-light};
+        --bs-primary: #{$brand-stan-blue-light};
+        --bs-secondary: #{$brand-stan-blue-light};
+        
+        .navbar {
+          --bs-navbar-bg: #{$brand-stan-nav-dark};
+        }
+      }
+
     navbar-light-bg: "#052744"
     navbar-light-color: "#F2E5BD"
     navbar-light-active-color: "#93B0F1"

@@ -25,16 +25,7 @@ color:
     stan-blue-light: "#AED1E4"
     stan-nav-dark: "#303030"
 
-  foreground:
-    light: stan-blue-dark
-    dark: stan-cream-light
-  background:
-    light: stan-cream
-    dark: stan-gray-dark
-  primary:
-    light: stan-blue-med
-    dark: stan-blue-light
-  secondary:
-    light: stan-teal
-    dark: stan-blue-light
-  
+  foreground: stan-blue-dark
+  background: stan-cream
+  primary: stan-blue-med
+  secondary: stan-teal
