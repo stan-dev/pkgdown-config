@@ -1,13 +1,5 @@
 ---
 title: "Test Vignette"
-vignette: >
-  %\VignetteIndexEntry{Setup}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
-knitr:
-  opts_chunk:
-    collapse: true
-    comment: '#>'
 ---
 
 ```{r setup}
