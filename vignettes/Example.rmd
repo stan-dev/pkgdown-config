@@ -12,7 +12,7 @@ This is a testing vignette to make sure the conditional evaluation works.
 
 ```{r}
 print("Starting expensive computation")
-Sys.sleep(5)
+Sys.sleep(1)
 print("Done!")
 ```
 

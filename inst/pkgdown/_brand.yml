@@ -1,0 +1,40 @@
+meta:
+  name: Stan
+  link: https://mc-stan.org
+
+typography:
+  base:
+    family: Source Sans 3
+    source: google
+  headings:
+    family: Source Sans 3
+    source: google
+    weight: 700
+  monospace:
+    family: Source Code Pro
+    source: google
+
+color:
+  palette:
+    stan-cream: "#FEFBF2"
+    stan-blue-dark: "#052744"
+    stan-blue-med: "#3E8EBC"
+    stan-teal: "#053A42"
+    stan-gray-dark: "#181818"
+    stan-cream-light: "#FAF1E4"
+    stan-blue-light: "#AED1E4"
+    stan-nav-dark: "#303030"
+
+  foreground:
+    light: stan-blue-dark
+    dark: stan-cream-light
+  background:
+    light: stan-cream
+    dark: stan-gray-dark
+  primary:
+    light: stan-blue-med
+    dark: stan-blue-light
+  secondary:
+    light: stan-teal
+    dark: stan-blue-light
+  
