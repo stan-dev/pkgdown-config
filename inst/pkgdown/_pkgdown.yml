@@ -10,7 +10,7 @@ template:
   theme-dark: nord
 
   bslib:
-    brand: _brand.yml"
+    brand: _brand.yml
 
     navbar-light-bg: "#052744"
     navbar-light-color: "#F2E5BD"
