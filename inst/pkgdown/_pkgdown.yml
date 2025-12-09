@@ -10,7 +10,7 @@ template:
   theme-dark: nord
 
   bslib:
-    brand: pkgdown/_brand.yml
+    brand: _brand.yml
 
     rules: |
       @include color-mode(dark) {
