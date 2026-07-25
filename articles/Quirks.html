@@ -13,8 +13,8 @@
 <link rel="manifest" href="../site.webmanifest">
 <!-- mathjax math --><script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4.0.0/tex-mml-chtml.js" integrity="sha256-qoRlVrS5NAnXSSSiMfFXwK8C9obG11Iybe4h2+bQYR4=" crossorigin="anonymous">
   </script><script src="../lightswitch.js"></script><script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/Source_Code_Pro-0.4.10/font.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
@@ -35,11 +35,11 @@
 
     <a class="navbar-brand me-2" href="../index.html">
       <!-- Add Stan logo -->
-      <picture><source type="image/svg+xml" srcset="../logo.svg"><img src="../logo.png" class="stan-logo" alt="Stan blue hex logo"></source></picture>
+      <img src="../reference/figures/logo.svg" class="stan-logo" alt="Stan blue hex logo">
       pkgdownconfig
     </a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.3.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">2.4.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,7 +96,7 @@
 
 
 
-      <small class="dont-index">Source: <a href="https://github.com/stan-dev/pkgdown-config/blob/main/vignettes/Quirks.qmd" class="external-link"><code>vignettes/Quirks.qmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/stan-dev/pkgdown-config/blob/v2.4.0/vignettes/Quirks.qmd" class="external-link"><code>vignettes/Quirks.qmd</code></a></small>
       <div class="d-none name"><code></code></div>
     </div>
 
@@ -118,12 +118,35 @@
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      My_cool_html</span></code></pre></div>
 <p>I left the functionality in so that the website wouldn’t fail silently and eat your input, but I hazard that you won’t want to put anything before the logo. If you want to put things in <code>before_title</code> you should copy my <code>navbar.HTML</code> into your package’s pkgdown configuration and edit it, putting HTML where it says <code>{#includes}{{{before_navbar}}}{{/includes}}</code>.</p>
-</section></section><section class="level2"><h2 id="logs-say-image-missing">Logs Say Image Missing<a class="anchor" aria-label="anchor" href="#logs-say-image-missing"></a>
+</section></section><section class="level2"><h2 id="logs-say-favicons-missing">Logs Say Favicons Missing<a class="anchor" aria-label="anchor" href="#logs-say-favicons-missing"></a>
 </h2>
-<p>This template copies over the Stan hex logo to root and references that manually in the templates, which <code>pkgdown</code> doens’t like. As such, you’ll get errors like</p>
-<pre><code>Missing images in .github/CONTRIBUTING.md: logo.png
-ℹ pkgdown can only use images in man/figures and vignettes</code></pre>
-<p>If you actually navigate to that page the logo will be there. I may fix/change this by referencing man/figures/logo (which is also copied over).</p>
+<p>Due to how pkgdown and this template package work, pkgdown will complain about missing favicons initially, but will copy them over soon after. They will appear in the built site properly, so you can safely ignore this error. Unfortunately, I don’t see any clean way of suppressing this error.</p>
+<pre><code>── Sitrep ──────────────────────────────────────────────────────────────────────
+✔ URLs ok.
+✖ Favicons not ok.
+  Found package logo but not favicons.
+  Do you need to run build_favicons()?
+✔ Open graph metadata ok.
+✔ Articles metadata ok.
+✔ Reference metadata ok.
+── Initialising site ───────────────────────────────────────────────────────────
+Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js
+Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js.map
+Updating deps/bootstrap-5.3.8/bootstrap.min.css
+── Building favicons ───────────────────────────────────────────────────────────
+ℹ Building favicons with &lt;https://realfavicongenerator.net&gt;...
+✔ Added apple-touch-icon.png, favicon-96x96.png, favicon.ico, favicon.svg,
+  site.webmanifest, web-app-manifest-192x192.png, and
+  web-app-manifest-512x512.png.
+Copying pkgdown/favicon/apple-touch-icon.png to apple-touch-icon.png
+Copying pkgdown/favicon/favicon-96x96.png to favicon-96x96.png
+Copying pkgdown/favicon/favicon.ico to favicon.ico
+Copying pkgdown/favicon/favicon.svg to favicon.svg
+Copying pkgdown/favicon/site.webmanifest to site.webmanifest
+Copying pkgdown/favicon/web-app-manifest-192x192.png to
+web-app-manifest-192x192.png
+Copying pkgdown/favicon/web-app-manifest-512x512.png to
+web-app-manifest-512x512.png</code></pre>
 </section><script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
@@ -217,7 +240,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

@@ -5,6 +5,7 @@
 If you haven’t started a `pkgdown` site yet, initialize it.
 
 ``` r
+
 usethis::use_pkgdown()
 ```
 
@@ -45,6 +46,7 @@ For local development, you need to install the package before you can
 build the site:
 
 ``` r
+
 pak::pak("stan-dev/pkgdown-config")
 pkgdown::build_site()
 ```

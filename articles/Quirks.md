@@ -29,15 +29,37 @@ copy my `navbar.HTML` into your package’s pkgdown configuration and edit
 it, putting HTML where it says
 `{#includes}{{{before_navbar}}}{{/includes}}`.
 
-## Logs Say Image Missing
+## Logs Say Favicons Missing
 
-This template copies over the Stan hex logo to root and references that
-manually in the templates, which `pkgdown` doens’t like. As such, you’ll
-get errors like
+Due to how pkgdown and this template package work, pkgdown will complain
+about missing favicons initially, but will copy them over soon after.
+They will appear in the built site properly, so you can safely ignore
+this error. Unfortunately, I don’t see any clean way of suppressing this
+error.
 
-    Missing images in .github/CONTRIBUTING.md: logo.png
-    ℹ pkgdown can only use images in man/figures and vignettes
-
-If you actually navigate to that page the logo will be there. I may
-fix/change this by referencing man/figures/logo (which is also copied
-over).
+    ── Sitrep ──────────────────────────────────────────────────────────────────────
+    ✔ URLs ok.
+    ✖ Favicons not ok.
+      Found package logo but not favicons.
+      Do you need to run build_favicons()?
+    ✔ Open graph metadata ok.
+    ✔ Articles metadata ok.
+    ✔ Reference metadata ok.
+    ── Initialising site ───────────────────────────────────────────────────────────
+    Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js
+    Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js.map
+    Updating deps/bootstrap-5.3.8/bootstrap.min.css
+    ── Building favicons ───────────────────────────────────────────────────────────
+    ℹ Building favicons with <https://realfavicongenerator.net>...
+    ✔ Added apple-touch-icon.png, favicon-96x96.png, favicon.ico, favicon.svg,
+      site.webmanifest, web-app-manifest-192x192.png, and
+      web-app-manifest-512x512.png.
+    Copying pkgdown/favicon/apple-touch-icon.png to apple-touch-icon.png
+    Copying pkgdown/favicon/favicon-96x96.png to favicon-96x96.png
+    Copying pkgdown/favicon/favicon.ico to favicon.ico
+    Copying pkgdown/favicon/favicon.svg to favicon.svg
+    Copying pkgdown/favicon/site.webmanifest to site.webmanifest
+    Copying pkgdown/favicon/web-app-manifest-192x192.png to
+    web-app-manifest-192x192.png
+    Copying pkgdown/favicon/web-app-manifest-512x512.png to
+    web-app-manifest-512x512.png

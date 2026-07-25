@@ -8,15 +8,15 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/stan-dev/pkgdown-config/blob/main/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/stan-dev/pkgdown-config/blob/v2.4.0/DESCRIPTION)
 
-Srimath Kandali V (2025). *pkgdownconfig: Stan pkgdown Website Styling*.
-R package version 2.3.0, <https://mc-stan.org/pkgdown-config>.
+Srimath Kandali V (2026). *pkgdownconfig: Stan pkgdown Website Styling*.
+R package version 2.4.0, <https://mc-stan.org/pkgdown-config>.
 
     @Manual{,
       title = {pkgdownconfig: Stan pkgdown Website Styling},
       author = {Visruth {Srimath Kandali}},
-      year = {2025},
-      note = {R package version 2.3.0},
+      year = {2026},
+      note = {R package version 2.4.0},
       url = {https://mc-stan.org/pkgdown-config},
     }
