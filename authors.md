@@ -8,7 +8,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/stan-dev/pkgdown-config/blob/v2.4.0/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/stan-dev/pkgdown-config/blob/main/DESCRIPTION)
 
 Srimath Kandali V (2026). *pkgdownconfig: Stan pkgdown Website Styling*.
 R package version 2.4.0, <https://mc-stan.org/pkgdown-config>.
