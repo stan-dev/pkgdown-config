@@ -5,7 +5,7 @@ articles:
   Example: Example.html
   Quirks: Quirks.html
   Setup: Setup.html
-last_built: 2026-08-07T09:43Z
+last_built: 2026-08-31T19:01Z
 urls:
   reference: https://mc-stan.org/pkgdown-config/reference
   article: https://mc-stan.org/pkgdown-config/articles
