@@ -1,6 +1,6 @@
 Package: pkgdownconfig
 Title: Stan pkgdown Website Styling
-Version: 2.4.0
+Version: 2.5.0
 Authors@R: 
     person("Visruth", "Srimath Kandali", , "public@visruth.com", role = c("aut", "cre"), 
             comment = c(ORCID = "0009-0005-9097-0688"))
@@ -18,4 +18,4 @@ VignetteBuilder:
     quarto
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.1.0
