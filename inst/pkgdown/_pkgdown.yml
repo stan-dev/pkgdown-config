@@ -57,6 +57,9 @@ navbar:
       icon: fa-home fa-lg
       aria-label: Go to homepage
       href: index.html
+    articles:
+      text: Articles
+      href: articles/index.html
     functions:
       text: Functions
       href: reference/index.html
