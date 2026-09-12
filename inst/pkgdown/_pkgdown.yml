@@ -44,21 +44,21 @@ template:
     navbar-dark-brand-color: "#FAF1E4"
     navbar-dark-brand-hover-color: "#FAF1E4"
 
-    base_font: { google: "Source Sans 3" }
-    heading_font: { google: "Source Sans 3" }
-    code_font: { google: "Source Code Pro" }
+    base_font: {google: Source Sans 3}
+    heading_font: {google: Source Sans 3}
+    code_font: {google: Source Code Pro}
 
 navbar:
   structure:
-    left: [home, vignettes, functions, news, otherpkgs, stan]
+    left: [home, articles, functions, news, otherpkgs, stan]
     right: [search, bluesky, forum, github, lightswitch]
   components:
     home:
       icon: fa-home fa-lg
       aria-label: Go to homepage
       href: index.html
-    vignettes:
-      text: Vignettes
+    articles:
+      text: Articles
       href: articles/index.html
     functions:
       text: Functions
@@ -88,7 +88,7 @@ navbar:
       text: About Stan
       href: https://mc-stan.org/about/
     bluesky:
-      icon: "fa-brands fa-bluesky"
+      icon: fa-brands fa-bluesky
       aria-label: Visit our Bluesky profile
       href: https://bsky.app/profile/did:plc:qznndgdnkem2yryu7ipqbpv7
     forum:
