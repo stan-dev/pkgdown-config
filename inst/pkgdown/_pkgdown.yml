@@ -50,7 +50,7 @@ template:
 
 navbar:
   structure:
-    left: [home, articles, functions, news, otherpkgs, stan]
+    left: [home, articles, functions, news, pkgs, stan]
     right: [search, bluesky, forum, github, lightswitch]
   components:
     home:
@@ -63,7 +63,7 @@ navbar:
     functions:
       text: Functions
       href: reference/index.html
-    otherpkgs:
+    pkgs:
       text: Other Packages
       menu:
         - text: bayesplot
@@ -74,6 +74,8 @@ navbar:
           href: https://mc-stan.org/loo
         - text: posterior
           href: https://mc-stan.org/posterior
+        - text: priorsense
+          href: https://mc-stan.org/priorsense/
         - text: projpred
           href: https://mc-stan.org/projpred
         - text: rstan
