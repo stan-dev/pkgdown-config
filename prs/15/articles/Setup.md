@@ -56,7 +56,7 @@ pkgdown::build_site()
 ```
 
 If you’re getting an error about dependency resolution when using a
-GitHub Action to automatically build your pkgdown site, remove the
+GitHub Action (GHA) to automatically build your pkgdown site, remove the
 `Config/Needs/website:` line from DESCRIPTION and add the pacakge to
 this GHA step:
 
@@ -90,6 +90,20 @@ reference:
     ...
 ```
 
+## GHA
+
+You can use the default GHA, or you can copy [this package’s
+GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml).
+This GHA deploys `pkgdown` sites on (non-fork[^1]) PRs to unique URLs
+(`/prs/$PR-NUMBER`). This means that PRs would have preview sites,
+`/dev` would track `main`, and the main site would track releases.
+
+You could also configure the `pkgdown` GHA to only run when [vignettes
+are
+modified](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#using-filters-to-target-specific-paths-for-pull-request-or-push-events),
+or only have the `workflow_dispatch` trigger so that you can build PR’s
+`pkgdown` sites as needed.
+
 ## Common Issues
 
 If for some reason the new favicons don’t get copied over, check if you
@@ -113,3 +127,6 @@ below):
 
 For any further concerns/help/anything, open an issue and/or ping
 `@Visruth` on the Stan Slack.
+
+[^1]: PRs from forks typically get a read-only `GITHUB_TOKEN` for
+    security, so they wouldn’t be able to deploy the site.

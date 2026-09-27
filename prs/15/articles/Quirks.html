@@ -118,10 +118,10 @@
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">    # before_title_AND_LOGO</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">    before_title</span><span class="kw">: </span><span class="ch">|</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>      My_cool_html</span></code></pre></div>
-<p>I left the functionality in so that the website wouldn’t fail silently and eat your input, but I hazard that you won’t want to put anything before the logo. If you want to put things in <code>before_title</code> you should copy my <code>navbar.HTML</code> into your package’s pkgdown configuration and edit it, putting HTML where it says <code>{#includes}{{{before_navbar}}}{{/includes}}</code>.</p>
+<p>I left the functionality in so that the website wouldn’t fail silently and eat your input, but I hazard that you won’t want to put anything before the logo. If you want to put things in <code>before_title</code> you should copy my <code>navbar.HTML</code> into your package’s <code>pkgdown</code> configuration and edit it, putting HTML where it says <code>{#includes}{{{before_navbar}}}{{/includes}}</code>.</p>
 </section></section><section class="level2"><h2 id="logs-say-favicons-missing">Logs Say Favicons Missing<a class="anchor" aria-label="anchor" href="#logs-say-favicons-missing"></a>
 </h2>
-<p>Due to how pkgdown and this template package work, pkgdown will complain about missing favicons initially, but will copy them over soon after. They will appear in the built site properly, so you can safely ignore this error. Unfortunately, I don’t see any clean way of suppressing this error.</p>
+<p>Due to how <code>pkgdown</code> and this template package work, <code>pkgdown</code> will complain about missing favicons initially, but will copy them over soon after. They will appear in the built site properly, so you can safely ignore this error. Unfortunately, I don’t see any clean way of suppressing this error.</p>
 <pre><code>── Sitrep ──────────────────────────────────────────────────────────────────────
 ✔ URLs ok.
 ✖ Favicons not ok.
