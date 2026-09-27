@@ -39,15 +39,33 @@ jobs:
           needs: website
 
       - name: Build site
-        run: >-
-          pkgdown::build_site_github_pages(clean = FALSE, new_process = TRUE,
-          install = FALSE)
+        id: pkgdown
+        run: |
+          pkgdown::build_site_github_pages(clean = FALSE, new_process = TRUE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Deploy to GitHub pages 🚀
+      - name: Get pkgdown destination
+        id: pkgdown-dest
+        run: |
+          echo "folder=$(Rscript -e 'cat(fs::path_rel(pkgdown::as_pkgdown(".")$dst_path))')" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy PR preview
+        if: >
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ${{ steps.pkgdown-dest.outputs.folder }}
+          target-folder: prs/${{ github.event.pull_request.number }}
+          clean: true
+          force: false
+
+      - name: Deploy site
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs
-          clean: true
+          clean: false
+          force: false
