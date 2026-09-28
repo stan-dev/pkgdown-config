@@ -55,6 +55,7 @@ jobs:
           echo "folder=$(Rscript -e 'cat(fs::path_rel(pkgdown::as_pkgdown(".")$dst_path))')" >> "$GITHUB_OUTPUT"
 
       - name: Deploy PR preview
+        # Forks cannot deploy the site
         if: >
           github.event_name == 'pull_request' &&
           github.event.pull_request.head.repo.full_name == github.repository
@@ -62,7 +63,7 @@ jobs:
         with:
           branch: gh-pages
           folder: ${{ steps.pkgdown-dest.outputs.folder }}
-          target-folder: prs/${{ github.event.pull_request.number }}
+          target-folder: pr/${{ github.event.pull_request.number }}
           clean: true
           force: false
 
