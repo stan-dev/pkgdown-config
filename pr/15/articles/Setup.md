@@ -18,15 +18,12 @@ template:
 
 Optional but highly recommended is to set [development
 mode](https://pkgdown.r-lib.org/reference/build_site.html#setting-development-mode)
-to auto and to build the site in root, in the `gh-pages` branch. This
-will build a dev version of the site at `/dev` (see
+to auto. This will build a dev version of the site at `/dev` (see
 [`loo`](https://mc-stan.org/loo/dev/) for example). Whether `pkgdown`
 treats a build as a development or release site is controlled by the
 version in DESCRIPTION (see pkgdown docs linked above).
 
 ``` yaml
-destination: "."
-
 development:
   mode: auto
 ```
