@@ -52,7 +52,7 @@ jobs:
       - name: Get pkgdown destination
         id: pkgdown-dest
         run: |
-          echo "folder=$(Rscript -e 'cat(fs::path_rel(pkgdown::as_pkgdown(".")$dst_path))')" >> "$GITHUB_OUTPUT"
+          echo "folder=$(Rscript -e 'cat(fs::path_rel(pkgdown::as_pkgdown(".", override = list(destination = "docs"))$dst_path))')" >> "$GITHUB_OUTPUT"
 
       - name: Deploy PR preview
         # Forks cannot deploy the site
