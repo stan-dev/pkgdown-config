@@ -4,27 +4,30 @@ on:
   push:
     branches: [main, master]
   pull_request:
+    types: [opened, reopened, synchronize, labeled]
   release:
     types: [published]
   workflow_dispatch:
 
 name: pkgdown.yaml
 
-permissions: read-all
-
 jobs:
   pkgdown:
+    # For PRs, only run when the PR has the build-website label.
+    if: >-
+      github.event_name != 'pull_request' ||
+      contains(github.event.pull_request.labels.*.name, 'build-website')
     runs-on: ubuntu-latest
     # Only restrict concurrency for non-PR jobs
     concurrency:
-      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
+      group: pkgdown-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
       cancel-in-progress: true
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: r-lib/actions/setup-pandoc@v2
 
@@ -39,15 +42,35 @@ jobs:
           needs: website
 
       - name: Build site
-        run: >-
-          pkgdown::build_site_github_pages(clean = FALSE, new_process = TRUE,
-          install = FALSE)
+        id: pkgdown
+        run: |
+          pkgdown::build_site_github_pages(clean = FALSE, new_process = TRUE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Deploy to GitHub pages 🚀
+      - name: Get pkgdown destination
+        if: github.event_name == 'pull_request'
+        id: pkgdown-dest
+        run: |
+          echo "folder=$(Rscript -e 'cat(fs::path_rel(pkgdown::as_pkgdown(".", override = list(destination = "docs"))$dst_path))')" >> "$GITHUB_OUTPUT"
+
+      - name: Deploy PR preview
+        # Forks cannot deploy the site
+        if: >
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: ${{ steps.pkgdown-dest.outputs.folder }}
+          target-folder: pr/${{ github.event.pull_request.number }}
+          clean: true
+          force: false
+
+      - name: Deploy site
         if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs
-          clean: true
+          clean: false
+          force: false
