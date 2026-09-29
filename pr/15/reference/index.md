@@ -2,5 +2,5 @@
 
 ## All functions
 
-- [`hello()`](https://mc-stan.org/pkgdown-config/dev/reference/hello.md)
-  : Hello!
+- [`hello()`](https://mc-stan.org/pkgdown-config/reference/hello.md) :
+  Hello!
