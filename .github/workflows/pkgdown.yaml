@@ -11,8 +11,6 @@ on:
 
 name: pkgdown.yaml
 
-permissions: read-all
-
 jobs:
   pkgdown:
     # For PRs, only run when the PR has the build-website label.
@@ -22,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     # Only restrict concurrency for non-PR jobs
     concurrency:
-      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
+      group: pkgdown-${{ github.event_name == 'pull_request' && github.event.pull_request.number || 'production' }}
       cancel-in-progress: true
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -50,6 +48,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Get pkgdown destination
+        if: github.event_name == 'pull_request'
         id: pkgdown-dest
         run: |
           echo "folder=$(Rscript -e 'cat(fs::path_rel(pkgdown::as_pkgdown(".", override = list(destination = "docs"))$dst_path))')" >> "$GITHUB_OUTPUT"
