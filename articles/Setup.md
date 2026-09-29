@@ -9,19 +9,21 @@ If you haven’t started a `pkgdown` site yet, initialize it.
 usethis::use_pkgdown()
 ```
 
-In `./_pkgdown.yml` add the contributed package:
+In `_pkgdown.yml` add the template package:
 
 ``` yaml
 template:
   package: pkgdownconfig
 ```
 
-Optional but highly recommended is to set development mode to auto and
-to build the site in root, like so:
+Optional but highly recommended is to set [development
+mode](https://pkgdown.r-lib.org/reference/build_site.html#setting-development-mode)
+to auto. This will build a dev version of the site at `/dev` (see
+[`loo`](https://mc-stan.org/loo/dev/) for example). Whether `pkgdown`
+treats a build as a development or release site is controlled by the
+version in DESCRIPTION (see pkgdown docs linked above).
 
 ``` yaml
-destination: "."
-
 development:
   mode: auto
 ```
@@ -33,12 +35,11 @@ automatically.
 Config/Needs/website: stan-dev/pkgdown-config
 ```
 
-Optionally, you should be able to pin a specific version of the template
-with a tag or commit:
+Optionally, you can pin a specific version of the template with a tag or
+commit, but this isn’t reocmmended.
 
 ``` yaml
 Config/Needs/website: stan-dev/pkgdown-config@v1.0.1
-
 Config/Needs/website: stan-dev/pkgdown-config@COMMITHASH
 ```
 
@@ -52,9 +53,9 @@ pkgdown::build_site()
 ```
 
 If you’re getting an error about dependency resolution when using a
-GitHub Action to automatically build your pkgdown site, remove the
-`Config/Needs/website:` line from DESCRIPTION and add use the R
-dependencies step like [here](NA):
+GitHub Action (GHA) to automatically build your pkgdown site, remove the
+`Config/Needs/website:` line from DESCRIPTION and add the pacakge to
+this GHA step:
 
 ``` yaml
       - uses: r-lib/actions/setup-r-dependencies@v2
@@ -62,48 +63,12 @@ dependencies step like [here](NA):
           extra-packages: any::pkgdown, local::., stan-dev/pkgdown-config
 ```
 
-By default, the theme has a navbar item which has other Stan R
-packages–this is not smart and won’t automatically drop the package
-you’re using the theme in. If you don’t want this, you should override
-that list in `_pkgdown.yml`. This example is taken from `loo`’s setup
+## Example
+
+Put together, here’s what a typical YAML might look like:
 
 ``` yaml
-navbar:
-  title: "loo"
-
-  structure:
-    left: [home, vignettes, functions, news, pkgs, stan]
-    right: [search, bluesky, forum, github, lightswitch]
-
-  components:
-    pkgs:
-      text: Other Packages
-      menu:
-        - text: bayesplot
-          href: https://mc-stan.org/bayesplot
-        - text: cmdstanr
-          href: https://mc-stan.org/cmdstanr
-        - text: posterior
-          href: https://mc-stan.org/posterior
-        - text: projpred
-          href: https://mc-stan.org/projpred
-        - text: rstan
-          href: https://mc-stan.org/rstan
-        - text: rstanarm
-          href: https://mc-stan.org/rstanarm
-        - text: rstantools
-          href: https://mc-stan.org/rstantools
-        - text: shinystan
-          href: https://mc-stan.org/shinystan
-```
-
-## Example (`shinystan`)
-
-Put together, here’s what a reasonable YAML looks like (truncated, taken
-from `shinystan`):
-
-``` yaml
-url: https://mc-stan.org/shinystan
+url: https://mc-stan.org/PKGNAME
 
 destination: "."
 
@@ -113,51 +78,43 @@ development:
 template:
   package: pkgdownconfig
 
-navbar:
-  title: "shinystan"
+articles:
+  - title: "Article 1"
+    ...
 
-  structure:
-    left: [home, vignettes, functions, news, pkgs, stan]
-    right: [search, bluesky, forum, github, lightswitch]
-
-  components:
-    pkgs:
-      text: Other Packages
-      menu:
-        - text: bayesplot
-          href: https://mc-stan.org/bayesplot
-        - text: cmdstanr
-          href: https://mc-stan.org/cmdstanr
-        - text: "loo"
-          href: https://mc-stan.org/loo
-        - text: posterior
-          href: https://mc-stan.org/posterior
-        - text: projpred
-          href: https://mc-stan.org/projpred
-        - text: rstan
-          href: https://mc-stan.org/rstan
-        - text: rstanarm
-          href: https://mc-stan.org/rstanarm
-        - text: rstantools
-          href: https://mc-stan.org/rstantools
-
-# now you can add articles, references, etc.
+reference:
+  - title: "Function Group 1"
+    ...
 ```
+
+## GHA
+
+You can use the default GHA, or you can copy [this package’s
+GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml).
+This GHA deploys `pkgdown` sites on (non-fork[^1]) PRs to unique URLs
+(`/prs/$PR-NUMBER`). This means that PRs would have preview sites,
+`/dev` would track `main`, and the main site would track releases.
+
+You could also configure the `pkgdown` GHA to only run when [vignettes
+are
+modified](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#using-filters-to-target-specific-paths-for-pull-request-or-push-events),
+or only have the `workflow_dispatch` trigger so that you can build PR’s
+`pkgdown` sites as needed.
 
 ## Common Issues
 
-If for some reason the favicons don’t get copied over, check if you are
-defining favicons in `pkgdown/favicons`. In most cases you can delete
-everything in that folder–just delete the logo and favicons if you are
-worried. The template will hook in the correct favicon and logo. If its
-not working, download
+If for some reason the new favicons don’t get copied over, check if you
+are defining favicons in `pkgdown/favicons`. In most cases you can
+delete everything in that folder–just delete the logo and favicons if
+you are worried. The template will hook in the correct favicon and logo.
+If its not working, download
 [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to
 `/man/figures/logo.svg` and run
 [`pkgdown::build_favicons()`](https://pkgdown.r-lib.org/reference/build_favicons.html)
 once to build the favicons.
 
 If you want the hex in your README (or if it isn’t working), make sure
-to edit the `README.MD` or however you generate it. You can take a look
+to edit the `README.md` or however you generate it. You can take a look
 at this package’s to get an idea of what you need to do (repeated
 below):
 
@@ -167,3 +124,6 @@ below):
 
 For any further concerns/help/anything, open an issue and/or ping
 `@Visruth` on the Stan Slack.
+
+[^1]: PRs from forks typically get a read-only `GITHUB_TOKEN` for
+    security, so they wouldn’t be able to deploy the site.

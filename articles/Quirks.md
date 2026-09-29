@@ -25,17 +25,17 @@ template:
 I left the functionality in so that the website wouldn’t fail silently
 and eat your input, but I hazard that you won’t want to put anything
 before the logo. If you want to put things in `before_title` you should
-copy my `navbar.HTML` into your package’s pkgdown configuration and edit
-it, putting HTML where it says
+copy my `navbar.HTML` into your package’s `pkgdown` configuration and
+edit it, putting HTML where it says
 `{#includes}{{{before_navbar}}}{{/includes}}`.
 
 ## Logs Say Favicons Missing
 
-Due to how pkgdown and this template package work, pkgdown will complain
-about missing favicons initially, but will copy them over soon after.
-They will appear in the built site properly, so you can safely ignore
-this error. Unfortunately, I don’t see any clean way of suppressing this
-error.
+Due to how `pkgdown` and this template package work, `pkgdown` will
+complain about missing favicons initially, but will copy them over soon
+after. They will appear in the built site properly, so you can safely
+ignore this error. Unfortunately, I don’t see any clean way of
+suppressing this error.
 
     ── Sitrep ──────────────────────────────────────────────────────────────────────
     ✔ URLs ok.
