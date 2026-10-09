@@ -33,6 +33,10 @@ pre {
   color: var(--bs-body-color);
 }
 
+.navbar .nav-link {
+  white-space: nowrap;
+}
+
 .navbar .navbar-brand img.stan-logo {
   height: 25px !important;
   width: auto;
