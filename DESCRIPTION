@@ -11,6 +11,11 @@ License: BSD_3_clause + file LICENSE
 URL: https://mc-stan.org/pkgdown-config,
     https://mc-stan.org/pkgdown-config
 BugReports: https://github.com/stan-dev/pkgdown-config/issues/
+Depends:
+    pkgdown (>= 2.1.0)
+Imports:
+    gh,
+    utils
 Suggests: 
     knitr,
     quarto
