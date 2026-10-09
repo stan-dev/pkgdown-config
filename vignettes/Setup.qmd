@@ -95,7 +95,7 @@ roadmap:
 
 Customize with `roadmap.overrides.milestones` / `roadmap.overrides.issues` (keyed by milestone/issue number, with `title` and `description`) and `roadmap.exclude.labels` / `roadmap.exclude.issues`. See the defaults in [this package's config](https://github.com/stan-dev/pkgdown-config/blob/main/inst/pkgdown/_pkgdown.yml).
 
-The GHA generates the roadmap article (`vignettes/articles/roadmap.Rmd`) and adds the navbar link for you. The article is rewritten on every build, so add it to `.gitignore`. For local builds use `pkgdownconfig::build_site()` in place of `pkgdown::build_site()`; it does the same and forwards all arguments.
+The GHA generates the roadmap article (`vignettes/articles/roadmap.Rmd`) and adds the navbar link for you. The article is rewritten on every build, so add it to `.gitignore`. For local builds use `pkgdownconfig::build_site()` in place of `pkgdown::build_site()`; it does the same and forwards all arguments. The roadmap is fetched from the GitHub API at build time. The GHA uses its own token; for local builds set a `GITHUB_PAT`, otherwise GitHub's unauthenticated limit of 60 requests per hour applies and the build can fail.
 
 ## GHA
 
@@ -107,7 +107,7 @@ You could also configure the `pkgdown` GHA to only run when [vignettes are modif
 
 ## Common Issues
 
-If for some reason the new favicons don't get copied over, check if you are defining favicons in `pkgdown/favicons`. In most cases you can delete everything in that folder--just delete the logo and favicons if you are worried. The template will hook in the correct favicon and logo. If its not working, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to `/man/figures/logo.svg` and run `pkgdown::build_favicons()` once to build the favicons.
+If for some reason the new favicons don't get copied over, check if you are defining favicons in `pkgdown/favicons`. In most cases you can delete everything in that folder--just delete the logo and favicons if you are worried. The template will hook in the correct favicon and logo. If its not working, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to `/man/figures/logo.svg` and run `pkgdown::build_favicons()` once to build the favicons. The navbar logo falls back to the Stan logo shipped with the template, so a package without `man/figures/logo.svg` still builds; a logo in your package takes precedence.
 
 <!-- Note that logo should also be copied into your build directory and will be hooked in automatically. If you can't find the logo, you can download it from [here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg) and follow the same steps above. -->
 
