@@ -64,7 +64,7 @@ use_roadmap <- function(pkg = ".") {
       "title: Roadmap",
       "---",
       "",
-      "```{r, echo=FALSE, results='asis'}",
+      "```{r, echo=FALSE, message=FALSE, results='asis'}",
       "pkgdownconfig::roadmap()",
       "```"
     ),
