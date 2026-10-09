@@ -110,7 +110,10 @@ build, so add it to `.gitignore`. For local builds use
 [`pkgdownconfig::build_site()`](https://mc-stan.org/pkgdown-config/pr/18/reference/build_site.md)
 in place of
 [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html);
-it does the same and forwards all arguments.
+it does the same and forwards all arguments. The roadmap is fetched from
+the GitHub API at build time. The GHA uses its own token; for local
+builds set a `GITHUB_PAT`, otherwise GitHub’s unauthenticated limit of
+60 requests per hour applies and the build can fail.
 
 ## GHA
 
@@ -138,7 +141,9 @@ If its not working, download
 [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to
 `/man/figures/logo.svg` and run
 [`pkgdown::build_favicons()`](https://pkgdown.r-lib.org/reference/build_favicons.html)
-once to build the favicons.
+once to build the favicons. The navbar logo falls back to the Stan logo
+shipped with the template, so a package without `man/figures/logo.svg`
+still builds; a logo in your package takes precedence.
 
 If you want the hex in your README (or if it isn’t working), make sure
 to edit the `README.md` or however you generate it. You can take a look
