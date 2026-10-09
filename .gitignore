@@ -5,3 +5,4 @@
 docs
 inst/doc
 **/.quarto/
+vignettes/articles/roadmap.Rmd

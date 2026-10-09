@@ -53,3 +53,38 @@ pre {
   line-height: 1;
   font-weight: 800;
 }
+
+.rm-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.rm-card {
+  border: 1px solid var(--bs-border-color);
+  border-left: 4px solid var(--bs-primary);
+  border-radius: .4rem;
+  padding: .75rem 1rem;
+
+  h4 {
+    margin: 0;
+    font-size: 1.05em;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  p {
+    margin: .4rem 0 0;
+  }
+
+  &.rm-closed {
+    opacity: .65;
+  }
+}

@@ -86,6 +86,9 @@ navbar:
           href: https://mc-stan.org/rstantools
         - text: shinystan
           href: https://mc-stan.org/shinystan
+    roadmap:
+      text: Roadmap
+      href: articles/roadmap.html
     stan:
       text: About Stan
       href: https://mc-stan.org/about/
@@ -102,3 +105,9 @@ home:
   links:
     - text: Ask a question
       href: http://discourse.mc-stan.org/
+
+roadmap:
+  enabled: false
+  format: rmd
+  exclude:
+    labels: [internal*, wontfix, invalid]

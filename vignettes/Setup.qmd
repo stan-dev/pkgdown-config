@@ -84,9 +84,22 @@ reference:
     ...
 ```
 
+## Roadmap
+
+Opt in to a roadmap page built from your open GitHub milestones and issues (PRs, closed milestones and issues labelled `internal*`, `wontfix` or `invalid` are skipped; closed issues go last).
+
+```yaml
+roadmap:
+  enabled: true
+```
+
+Customize with `roadmap.overrides.milestones` / `roadmap.overrides.issues` (keyed by milestone/issue number, with `title` and `description`) and `roadmap.exclude.labels` / `roadmap.exclude.issues`. See the defaults in [this package's config](https://github.com/stan-dev/pkgdown-config/blob/main/inst/pkgdown/_pkgdown.yml).
+
+The GHA generates the roadmap article (`vignettes/articles/roadmap.Rmd`) and adds the navbar link for you. The article is rewritten on every build, so add it to `.gitignore`. For local builds use `pkgdownconfig::build_site()` in place of `pkgdown::build_site()`; it does the same and forwards all arguments. The roadmap is fetched from the GitHub API at build time. The GHA uses its own token; for local builds set a `GITHUB_PAT`, otherwise GitHub's unauthenticated limit of 60 requests per hour applies and the build can fail.
+
 ## GHA
 
-You can use the default GHA, or you can copy [this package's GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml). This GHA deploys `pkgdown` sites on (non-fork[^1]) PRs to unique URLs (`/prs/$PR-NUMBER`). This means that PRs would have preview sites, `/dev` would track `main`, and the main site would track releases.
+You can use the default GHA, or you can run `pkgdownconfig::use_pkgdown_gha()` to copy [this package's GHA](https://github.com/stan-dev/pkgdown-config/blob/main/inst/workflows/pkgdown.yaml). This GHA deploys `pkgdown` sites on (non-fork[^1]) PRs to unique URLs (`/prs/$PR-NUMBER`). This means that PRs would have preview sites, `/dev` would track `main`, and the main site would track releases.
 
 You could also configure the `pkgdown` GHA to only run when [vignettes are modified](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#using-filters-to-target-specific-paths-for-pull-request-or-push-events), or only have the `workflow_dispatch` trigger so that you can build PR's `pkgdown` sites as needed. 
 
@@ -94,7 +107,7 @@ You could also configure the `pkgdown` GHA to only run when [vignettes are modif
 
 ## Common Issues
 
-If for some reason the new favicons don't get copied over, check if you are defining favicons in `pkgdown/favicons`. In most cases you can delete everything in that folder--just delete the logo and favicons if you are worried. The template will hook in the correct favicon and logo. If its not working, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to `/man/figures/logo.svg` and run `pkgdown::build_favicons()` once to build the favicons.
+If for some reason the new favicons don't get copied over, check if you are defining favicons in `pkgdown/favicons`. In most cases you can delete everything in that folder--just delete the logo and favicons if you are worried. The template will hook in the correct favicon and logo. If its not working, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to `/man/figures/logo.svg` and run `pkgdown::build_favicons()` once to build the favicons. The navbar logo falls back to the Stan logo shipped with the template, so a package without `man/figures/logo.svg` still builds; a logo in your package takes precedence.
 
 <!-- Note that logo should also be copied into your build directory and will be hooked in automatically. If you can't find the logo, you can download it from [here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg) and follow the same steps above. -->
 

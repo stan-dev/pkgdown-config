@@ -11,11 +11,18 @@ License: BSD_3_clause + file LICENSE
 URL: https://mc-stan.org/pkgdown-config,
     https://mc-stan.org/pkgdown-config
 BugReports: https://github.com/stan-dev/pkgdown-config/issues/
+Depends:
+    pkgdown (>= 2.1.0)
+Imports:
+    gh,
+    utils
 Suggests: 
+    testthat (>= 3.0.0),
     knitr,
     quarto
 VignetteBuilder: 
     quarto
+Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 Config/roxygen2/version: 8.1.0
