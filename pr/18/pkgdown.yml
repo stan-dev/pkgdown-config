@@ -4,8 +4,9 @@ pkgdown_sha: ~
 articles:
   Example: Example.html
   Quirks: Quirks.html
+  articles/roadmap: roadmap.html
   Setup: Setup.html
-last_built: 2026-10-09T02:49Z
+last_built: 2026-10-09T02:57Z
 urls:
   reference: https://mc-stan.org/pkgdown-config/pr/18/reference
   article: https://mc-stan.org/pkgdown-config/pr/18/articles
