@@ -48,7 +48,7 @@ jobs:
       - name: Build site
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: pkgdownconfig:::build_gha_site()
+        run: pkgdownconfig::build_gha_site()
         shell: Rscript {0}
 
       - name: Deploy PR preview

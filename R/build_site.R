@@ -49,14 +49,10 @@ roadmap_site <- function(path = ".") {
   pkg
 }
 
-#' Build the site for GitHub Pages
+#' Build the GitHub Pages site
 #'
-#' Used by the GitHub Action. Prepares the roadmap, then builds the site. With a
-#' pull request number, the site is built under `/pr/<number>` and not indexed.
-#'
-#' @param pr_number The pull request number, or an empty string.
-#' @return The result of [pkgdown::build_site_github_pages()], invisibly.
-#' @noRd
+#' @param pr_number Pull request number. Empty builds the main site.
+#' @export
 build_gha_site <- function(pr_number = Sys.getenv("PR_NUMBER")) {
   pkg <- roadmap_site(".")
   if (nzchar(pr_number) && pkg$development$mode == "devel") {
