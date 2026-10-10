@@ -114,9 +114,10 @@ the latest GitHub release and the open milestones, and milestones are
 listed next release first, ordered by version (milestones whose title is
 not a version come last).
 
-The GHA generates the roadmap article (`vignettes/articles/roadmap.Rmd`)
-and adds the navbar link for you. The article is rewritten on every
-build, so add it to `.gitignore`. For local builds use
+The GHA generates the roadmap article (`vignettes/articles/roadmap.Rmd`,
+or `roadmap.qmd` with `format: qmd`) and adds the navbar link for you.
+The article is rewritten on every build, so add it to `.gitignore`. For
+local builds use
 [`pkgdownconfig::build_site()`](https://mc-stan.org/pkgdown-config/pr/18/reference/build_site.md)
 in place of
 [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html);

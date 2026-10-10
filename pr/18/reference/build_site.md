@@ -1,7 +1,6 @@
 # Build a Stan pkgdown site
 
-Writes the roadmap article when `roadmap: enabled: true` is set, then
-calls
+Adds the roadmap when `roadmap: enabled: true` is set, then calls
 [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html)
 with all other arguments.
 
