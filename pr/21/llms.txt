@@ -11,12 +11,7 @@ and/or ping `@Visruth` on the Stan Slack.
 
 [Demo](https://mc-stan.org/pkgdown-config/)
 
-# Package index
-
-## All functions
-
-- [`hello()`](https://mc-stan.org/pkgdown-config/pr/21/reference/hello.md)
-  : Hello!
+# 
 
 # Articles
 
