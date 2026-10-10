@@ -67,7 +67,7 @@ jobs:
             pkg = pkg,
             lazy = FALSE,
             run_dont_run = TRUE,
-            new_process = FALSE,
+            new_process = TRUE,
             override = override
           )
         shell: Rscript {0}
