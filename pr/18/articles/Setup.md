@@ -99,10 +99,20 @@ roadmap:
 ```
 
 Customize with `roadmap.overrides.milestones` /
-`roadmap.overrides.issues` (keyed by milestone/issue number, with
-`title` and `description`) and `roadmap.exclude.labels` /
-`roadmap.exclude.issues`. See the defaults in [this package’s
+`roadmap.overrides.issues` (keyed by milestone/issue number; both take
+`title` and `description`, issues also take `order`, and milestones can
+add your own `cards`, each with a `title`, `description`, optional `url`
+and optional `order`). Cards are ordered by issue number with closed
+issues last, unless you set `order`; custom cards come last unless they
+set it and `roadmap.exclude.labels` / `roadmap.exclude.issues`. See the
+defaults in [this package’s
 config](https://github.com/stan-dev/pkgdown-config/blob/main/inst/pkgdown/_pkgdown.yml).
+The introduction (`roadmap.intro`) and the closing section
+(`roadmap.outro`) are Markdown with `{package}` and `{repo}`
+placeholders, and you can replace them. The timeline is generated from
+the latest GitHub release and the open milestones, and milestones are
+listed next release first, ordered by version (milestones whose title is
+not a version come last).
 
 The GHA generates the roadmap article (`vignettes/articles/roadmap.Rmd`)
 and adds the navbar link for you. The article is rewritten on every
