@@ -1,0 +1,65 @@
+# Quirks
+
+Due to how the theme is written, there are some thing you should note.
+
+## Templates
+
+This theme uses partials to override the default templates for the
+navbar and for `head`. These are both pinned at a [specific
+commit](https://github.com/r-lib/pkgdown/tree/fe04924b3df129bea60ac871614b01d87bcae147).
+If you notice that the theme is behind upstream, please open an issue.
+
+### before-title
+
+Since the theme overrides the navbar partial to insert the logo,
+anything HTML put in `before-title` will appear before the logo.
+
+``` yaml
+template:
+  includes:
+    # before_title_AND_LOGO
+    before_title: |
+      My_cool_html
+```
+
+I left the functionality in so that the website wouldn’t fail silently
+and eat your input, but I hazard that you won’t want to put anything
+before the logo. If you want to put things in `before_title` you should
+copy my `navbar.HTML` into your package’s `pkgdown` configuration and
+edit it, putting HTML where it says
+`{#includes}{{{before_navbar}}}{{/includes}}`.
+
+## Logs Say Favicons Missing
+
+Due to how `pkgdown` and this template package work, `pkgdown` will
+complain about missing favicons initially, but will copy them over soon
+after. They will appear in the built site properly, so you can safely
+ignore this error. Unfortunately, I don’t see any clean way of
+suppressing this error.
+
+    ── Sitrep ──────────────────────────────────────────────────────────────────────
+    ✔ URLs ok.
+    ✖ Favicons not ok.
+      Found package logo but not favicons.
+      Do you need to run build_favicons()?
+    ✔ Open graph metadata ok.
+    ✔ Articles metadata ok.
+    ✔ Reference metadata ok.
+    ── Initialising site ───────────────────────────────────────────────────────────
+    Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js
+    Updating deps/bootstrap-5.3.8/bootstrap.bundle.min.js.map
+    Updating deps/bootstrap-5.3.8/bootstrap.min.css
+    ── Building favicons ───────────────────────────────────────────────────────────
+    ℹ Building favicons with <https://realfavicongenerator.net>...
+    ✔ Added apple-touch-icon.png, favicon-96x96.png, favicon.ico, favicon.svg,
+      site.webmanifest, web-app-manifest-192x192.png, and
+      web-app-manifest-512x512.png.
+    Copying pkgdown/favicon/apple-touch-icon.png to apple-touch-icon.png
+    Copying pkgdown/favicon/favicon-96x96.png to favicon-96x96.png
+    Copying pkgdown/favicon/favicon.ico to favicon.ico
+    Copying pkgdown/favicon/favicon.svg to favicon.svg
+    Copying pkgdown/favicon/site.webmanifest to site.webmanifest
+    Copying pkgdown/favicon/web-app-manifest-192x192.png to
+    web-app-manifest-192x192.png
+    Copying pkgdown/favicon/web-app-manifest-512x512.png to
+    web-app-manifest-512x512.png
