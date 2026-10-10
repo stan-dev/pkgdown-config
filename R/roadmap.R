@@ -10,6 +10,11 @@
 roadmap_markdown <- function(pkg) {
   config <- pkg$meta$roadmap
   repo <- gsub("^https://github.com/|/$", "", pkg$repo$url$home)
+  fill <- function(text) {
+    text <- gsub("{package}", pkg$package, text, fixed = TRUE)
+    gsub("{repo}", repo, text, fixed = TRUE)
+  }
+
   issues <- gh::gh(
     "/repos/{repo}/issues",
     repo = repo,
@@ -17,34 +22,37 @@ roadmap_markdown <- function(pkg) {
     state = "all",
     .limit = Inf
   )
+  excluded_labels <- utils::glob2rx(unlist(config$exclude$labels))
+  excluded_issues <- unlist(config$exclude$issues)
   issues <- Filter(
     function(issue) {
+      labels <- vapply(issue$labels, `[[`, "", "name")
       is.null(issue$pull_request) &&
         issue$milestone$state == "open" &&
-        !roadmap_excluded(issue, config$exclude)
+        !(as.character(issue$number) %in% excluded_issues) &&
+        !any(vapply(excluded_labels, function(p) any(grepl(p, labels)), NA))
     },
     issues
   )
+
   milestones <- split(
     issues,
     vapply(issues, function(issue) issue$milestone$number, numeric(1))
   )
   titles <- vapply(milestones, function(m) m[[1]]$milestone$title, "")
   versions <- numeric_version(sub("^v", "", titles), strict = FALSE)
-  versioned <- !is.na(versions)
   release <- tryCatch(
     gh::gh("/repos/{repo}/releases/latest", repo = repo),
-    error = function(e) NULL
+    http_error_404 = function(e) NULL
   )
 
-  fill <- function(text) roadmap_fill(text, pkg$package, repo)
   c(
     sprintf("[Last updated: %s]{.rm-updated}", format(Sys.Date(), "%B %Y")),
     "",
     fill(config$intro),
-    if (any(versioned)) {
+    if (any(!is.na(versions))) {
       roadmap_timeline(
-        milestones[versioned][order(versions[versioned])],
+        milestones[!is.na(versions)][order(versions[!is.na(versions)])],
         release,
         repo
       )
@@ -58,66 +66,15 @@ roadmap_markdown <- function(pkg) {
   )
 }
 
-#' Write the roadmap article
-#'
-#' Writes `vignettes/articles/roadmap.Rmd`, or `roadmap.qmd` when `format` is
-#' `qmd`, containing the roadmap markdown. Removes the other format's file.
-#'
-#' @param pkg A pkgdown object from [pkgdown::as_pkgdown()].
-#' @return The path of the article, invisibly.
-#' @noRd
-write_roadmap <- function(pkg) {
-  format <- pkg$meta$roadmap$format %||% "rmd"
-  if (!format %in% c("rmd", "qmd")) {
-    stop("`roadmap: format` must be `rmd` or `qmd`.", call. = FALSE)
-  }
-  dir <- file.path(pkg$src_path, "vignettes", "articles")
-  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
-  extensions <- c(rmd = "Rmd", qmd = "qmd")
-  other <- file.path(
-    dir,
-    paste0("roadmap.", extensions[names(extensions) != format])
-  )
-  if (file.exists(other)) {
-    stop(
-      "`",
-      other,
-      "` exists alongside the ",
-      format,
-      " article. ",
-      "Remove one of them.",
-      call. = FALSE
-    )
-  }
-  path <- file.path(dir, paste0("roadmap.", extensions[[format]]))
-  writeLines(c("---", "title: Roadmap", "---", "", roadmap_markdown(pkg)), path)
-  invisible(path)
-}
-
-#' Substitute the package placeholders in roadmap text
-#'
-#' @param text Text from the roadmap config.
-#' @param package The package name, for `{package}`.
-#' @param repo The repository as `owner/name`, for `{repo}`.
-#' @return `text` with the placeholders replaced.
-#' @noRd
-roadmap_fill <- function(text, package, repo) {
-  text <- gsub("{package}", package, text, fixed = TRUE)
-  gsub("{repo}", repo, text, fixed = TRUE)
-}
-
 #' Markdown for the release timeline
 #'
 #' @param milestones The issues grouped by milestone, in ascending version
 #'   order.
-#' @param release The latest release as returned by the GitHub API, or `NULL`.
+#' @param release The latest release from the GitHub API, or `NULL`.
 #' @param repo The repository as `owner/name`.
 #' @return A character vector of markdown lines.
 #' @noRd
 roadmap_timeline <- function(milestones, release, repo) {
-  current <- if (!is.null(release)) {
-    numeric_version(sub("^v", "", release$tag_name), strict = FALSE)
-  }
   released <- if (!is.null(release)) {
     list(roadmap_station(
       release$tag_name,
@@ -127,12 +84,11 @@ roadmap_timeline <- function(milestones, release, repo) {
       "rm-past"
     ))
   }
-  upcoming <- lapply(milestones, function(m) {
-    milestone <- m[[1]]$milestone
-    version <- numeric_version(sub("^v", "", milestone$title), strict = FALSE)
+  upcoming <- lapply(seq_along(milestones), function(i) {
+    milestone <- milestones[[i]][[1]]$milestone
     roadmap_station(
       milestone$title,
-      roadmap_kind(version, current),
+      if (i == 1) "Next release" else "Upcoming release",
       "Milestone",
       milestone$html_url
     )
@@ -143,7 +99,7 @@ roadmap_timeline <- function(milestones, release, repo) {
     "Open an issue",
     sprintf("https://github.com/%s/issues/new", repo)
   ))
-  stations <- c(released, unname(upcoming), beyond)
+  stations <- c(released, upcoming, beyond)
 
   c(
     "",
@@ -167,8 +123,9 @@ roadmap_timeline <- function(milestones, release, repo) {
 #' @return A character vector of markdown lines.
 #' @noRd
 roadmap_station <- function(title, subtitle, label, href, class = NULL) {
+  classes <- paste0(".", c("rm-station", class), collapse = " ")
   c(
-    paste0(":::: {", paste(c(".rm-station", class), collapse = " ."), "}"),
+    sprintf(":::: {%s}", classes),
     sprintf("[%s]{.rm-station-title}", title),
     "",
     sprintf("[%s]{.rm-station-sub}", subtitle),
@@ -177,28 +134,6 @@ roadmap_station <- function(title, subtitle, label, href, class = NULL) {
     "::::",
     ""
   )
-}
-
-#' Describe how a version follows the current release
-#'
-#' @param version The milestone version.
-#' @param current The latest released version, or `NULL`.
-#' @return `"Next major release"`, `"Next minor release"`,
-#'   `"Next patch release"` or `"Upcoming release"`.
-#' @noRd
-roadmap_kind <- function(version, current) {
-  if (is.null(current) || is.na(version) || is.na(current)) {
-    return("Upcoming release")
-  }
-  next_version <- c(unlist(version), 0, 0)
-  current <- c(unlist(current), 0, 0)
-  if (next_version[1] > current[1]) {
-    "Next major release"
-  } else if (next_version[2] > current[2]) {
-    "Next minor release"
-  } else {
-    "Next patch release"
-  }
 }
 
 #' Markdown for one milestone
@@ -235,7 +170,7 @@ roadmap_milestone <- function(issues, config) {
     })
   )
   closed <- vapply(cards, function(card) card$closed, NA)
-  position <- vapply(cards, function(card) card$order, 0)
+  position <- vapply(cards, function(card) card$order, numeric(1))
 
   c(
     paste("##", override$title %||% milestone$title),
@@ -247,20 +182,6 @@ roadmap_milestone <- function(issues, config) {
     ":::::",
     ""
   )
-}
-
-#' Whether an issue is excluded from the roadmap
-#'
-#' @param issue An issue as returned by the GitHub API.
-#' @param exclude The `exclude` section of the roadmap config.
-#' @return `TRUE` or `FALSE`.
-#' @noRd
-roadmap_excluded <- function(issue, exclude) {
-  labels <- vapply(issue$labels, `[[`, "", "name")
-  patterns <- utils::glob2rx(unlist(exclude$labels))
-  as.character(issue$number) %in%
-    unlist(exclude$issues) ||
-    any(vapply(patterns, function(p) any(grepl(p, labels)), NA))
 }
 
 #' Markdown for one card

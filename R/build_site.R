@@ -23,10 +23,32 @@ build_site <- function(pkg = ".", ..., override = list()) {
 #' @noRd
 roadmap_site <- function(path = ".") {
   pkg <- pkgdown::as_pkgdown(path)
-  if (!isTRUE(pkg$meta$roadmap$enabled)) {
+  config <- pkg$meta$roadmap
+  if (!isTRUE(config$enabled)) {
     return(pkg)
   }
-  write_roadmap(pkg)
+
+  article_format <- config$format %||% "rmd"
+  if (!article_format %in% c("rmd", "qmd")) {
+    stop("`roadmap: format` must be `rmd` or `qmd`.", call. = FALSE)
+  }
+  extensions <- c(rmd = "Rmd", qmd = "qmd")
+  dir <- file.path(pkg$src_path, "vignettes", "articles")
+  other_format <- setdiff(names(extensions), article_format)
+  other <- file.path(dir, paste0("roadmap.", extensions[[other_format]]))
+  if (file.exists(other)) {
+    stop(
+      "`", other, "` exists alongside the ", article_format, " article. ",
+      "Remove one of them.",
+      call. = FALSE
+    )
+  }
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  writeLines(
+    c("---", "title: Roadmap", "---", "", roadmap_markdown(pkg)),
+    file.path(dir, paste0("roadmap.", extensions[[article_format]]))
+  )
+
   pkg <- pkgdown::as_pkgdown(path)
   left <- pkg$meta$navbar$structure$left
   pkg$meta$navbar$structure$left <- append(
@@ -55,30 +77,19 @@ roadmap_site <- function(path = ".") {
 #' @export
 build_gha_site <- function(pr_number = Sys.getenv("PR_NUMBER")) {
   pkg <- roadmap_site(".")
-  if (nzchar(pr_number) && pkg$development$mode == "devel") {
-    Sys.setenv(PKGDOWN_DEV_MODE = "unreleased")
+  override <- list()
+  if (nzchar(pr_number)) {
+    if (pkg$development$mode == "devel") {
+      Sys.setenv(PKGDOWN_DEV_MODE = "unreleased")
+    }
+    override$url <- paste0(pkg$meta$url, "/pr/", pr_number)
+    override$template$params$noindex <- TRUE
   }
   pkgdown::build_site_github_pages(
     pkg = pkg,
     lazy = FALSE,
     run_dont_run = TRUE,
     new_process = TRUE,
-    override = gha_override(pkg, pr_number)
-  )
-}
-
-#' Build overrides for a pull request preview
-#'
-#' @param pkg A pkgdown object.
-#' @param pr_number The pull request number, or an empty string.
-#' @return A pkgdown override list, empty when there is no pull request.
-#' @noRd
-gha_override <- function(pkg, pr_number) {
-  if (!nzchar(pr_number)) {
-    return(list())
-  }
-  list(
-    url = paste0(pkg$meta$url, "/pr/", pr_number),
-    template = list(params = list(noindex = TRUE))
+    override = override
   )
 }

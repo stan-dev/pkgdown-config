@@ -102,3 +102,34 @@ test_that("roadmap_markdown() applies milestone and issue overrides and custom c
   expect_match(paste(markdown, collapse = "\n"), "Your ideas.*Renamed.*Second")
   expect_match(paste(markdown, collapse = "\n"), "Custom card text.")
 })
+
+test_that("roadmap_markdown() leaves out the released station when there is no release", {
+  issues <- list(fake_issue(1, "Kept", fake_milestone(1, "v3.0.0")))
+  local_mocked_bindings(
+    gh = function(endpoint, ...) {
+      if (grepl("releases", endpoint)) {
+        rlang::abort("Not Found", class = c("github_error", "http_error_404", "error"))
+      }
+      issues
+    },
+    .package = "gh"
+  )
+  pkg <- pkgdown::as_pkgdown(fake_package(c("roadmap:", "  enabled: true")))
+
+  expect_no_match(paste(roadmap_markdown(pkg), collapse = "\n"), "rm-past")
+})
+
+test_that("roadmap_markdown() reports other release errors", {
+  local_mocked_bindings(
+    gh = function(endpoint, ...) {
+      if (grepl("releases", endpoint)) {
+        rlang::abort("Rate limited", class = c("github_error", "http_error_403", "error"))
+      }
+      list()
+    },
+    .package = "gh"
+  )
+  pkg <- pkgdown::as_pkgdown(fake_package(c("roadmap:", "  enabled: true")))
+
+  expect_error(roadmap_markdown(pkg), "Rate limited")
+})
