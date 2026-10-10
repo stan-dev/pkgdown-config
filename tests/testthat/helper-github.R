@@ -27,8 +27,14 @@ fake_issue <- function(
   )
 }
 
-fake_gh <- function(issues, release = list(tag_name = "v2.10.1")) {
+fake_gh <- function(issues, release = list(tag_name = "v2.10.1"), milestones = list()) {
   function(endpoint, ...) {
-    if (grepl("releases", endpoint)) release else issues
+    if (grepl("releases", endpoint)) {
+      release
+    } else if (grepl("milestones", endpoint)) {
+      milestones
+    } else {
+      issues
+    }
   }
 }

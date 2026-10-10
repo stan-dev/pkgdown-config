@@ -39,6 +39,20 @@ roadmap_markdown <- function(pkg) {
     issues,
     vapply(issues, function(issue) issue$milestone$number, numeric(1))
   )
+  open_milestones <- gh::gh(
+    "/repos/{repo}/milestones",
+    repo = repo,
+    state = "open",
+    .limit = Inf
+  )
+  for (milestone in open_milestones) {
+    if (!as.character(milestone$number) %in% names(milestones)) {
+      warning(
+        "Milestone `", milestone$title, "` has no open issues and is left out of the roadmap.",
+        call. = FALSE
+      )
+    }
+  }
   titles <- vapply(milestones, function(m) m[[1]]$milestone$title, "")
   versions <- numeric_version(sub("^v", "", titles), strict = FALSE)
   release <- tryCatch(

@@ -133,3 +133,13 @@ test_that("roadmap_markdown() reports other release errors", {
 
   expect_error(roadmap_markdown(pkg), "Rate limited")
 })
+
+test_that("roadmap_markdown() warns about an open milestone with no issues and keeps building", {
+  issues <- list(fake_issue(1, "Kept", fake_milestone(1, "v3.0.0")))
+  milestones <- list(fake_milestone(1, "v3.0.0"), fake_milestone(4, "v4.0.0"))
+  local_mocked_bindings(gh = fake_gh(issues, milestones = milestones), .package = "gh")
+  pkg <- pkgdown::as_pkgdown(fake_package(c("roadmap:", "  enabled: true")))
+
+  expect_warning(markdown <- roadmap_markdown(pkg), "v4.0.0")
+  expect_match(paste(markdown, collapse = "\n"), "Kept")
+})
