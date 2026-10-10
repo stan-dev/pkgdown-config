@@ -7,7 +7,7 @@
 #' @param pkg A pkgdown object from [pkgdown::as_pkgdown()].
 #' @return A character vector of markdown lines.
 #' @noRd
-roadmap <- function(pkg) {
+roadmap_markdown <- function(pkg) {
   config <- pkg$meta$roadmap
   repo <- gsub("^https://github.com/|/$", "", pkg$repo$url$home)
   issues <- gh::gh(
@@ -27,7 +27,7 @@ roadmap <- function(pkg) {
   )
   milestones <- split(
     issues,
-    vapply(issues, function(issue) issue$milestone$number, 0L)
+    vapply(issues, function(issue) issue$milestone$number, numeric(1))
   )
   titles <- vapply(milestones, function(m) m[[1]]$milestone$title, "")
   versions <- numeric_version(sub("^v", "", titles), strict = FALSE)
@@ -49,11 +49,11 @@ roadmap <- function(pkg) {
         repo
       )
     },
-    unlist(lapply(
+    unname(unlist(lapply(
       milestones[order(is.na(versions), versions)],
       roadmap_milestone,
       config
-    )),
+    ))),
     fill(config$outro)
   )
 }
@@ -79,7 +79,7 @@ write_roadmap <- function(pkg) {
     paste0("roadmap.", extensions[names(extensions) != format])
   ))
   path <- file.path(dir, paste0("roadmap.", extensions[[format]]))
-  writeLines(c("---", "title: Roadmap", "---", "", roadmap(pkg)), path)
+  writeLines(c("---", "title: Roadmap", "---", "", roadmap_markdown(pkg)), path)
   invisible(path)
 }
 

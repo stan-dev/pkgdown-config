@@ -7,7 +7,9 @@ fake_package <- function(config) {
       "Version: 1.0",
       "Title: Fake",
       "Description: Fake.",
-      "License: MIT"
+      "License: MIT",
+      "URL: https://github.com/stan-dev/fake",
+      "Authors@R: person(\"A\", \"B\", role = c(\"aut\", \"cre\"), email = \"a@b.c\")"
     ),
     file.path(dir, "DESCRIPTION")
   )
