@@ -74,22 +74,30 @@ roadmap_site <- function(path = ".") {
 #' Build the GitHub Pages site
 #'
 #' @param pr_number Pull request number. Empty builds the main site.
+#' @param ... Passed on to [pkgdown::build_site_github_pages()], overriding its defaults.
 #' @export
-build_gha_site <- function(pr_number = Sys.getenv("PR_NUMBER")) {
+build_gha_site <- function(pr_number = Sys.getenv("PR_NUMBER"), ...) {
   pkg <- roadmap_site(".")
   override <- list()
   if (nzchar(pr_number)) {
     if (pkg$development$mode == "devel") {
       Sys.setenv(PKGDOWN_DEV_MODE = "unreleased")
     }
-    override$url <- paste0(pkg$meta$url, "/pr/", pr_number)
+    preview <- paste0(pkg$meta$url, "/pr/", pr_number)
+    if (nzchar(Sys.getenv("GITHUB_ENV"))) {
+      cat(
+        paste0("PREVIEW_URL=", preview, "\n"),
+        file = Sys.getenv("GITHUB_ENV"),
+        append = TRUE
+      )
+    }
+    override$url <- preview
     override$template$params$noindex <- TRUE
   }
-  pkgdown::build_site_github_pages(
-    pkg = pkg,
-    lazy = FALSE,
-    run_dont_run = TRUE,
-    new_process = TRUE,
-    override = override
+  defaults <- list(lazy = FALSE, run_dont_run = TRUE, new_process = TRUE)
+  args <- utils::modifyList(defaults, list(...))
+  do.call(
+    pkgdown::build_site_github_pages,
+    c(list(pkg = pkg, override = override), args)
   )
 }

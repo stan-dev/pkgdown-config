@@ -4,10 +4,12 @@
 \alias{build_gha_site}
 \title{Build the GitHub Pages site}
 \usage{
-build_gha_site(pr_number = Sys.getenv("PR_NUMBER"))
+build_gha_site(pr_number = Sys.getenv("PR_NUMBER"), ...)
 }
 \arguments{
 \item{pr_number}{Pull request number. Empty builds the main site.}
+
+\item{...}{Passed on to \code{\link[pkgdown:build_site_github_pages]{pkgdown::build_site_github_pages()}}, overriding its defaults.}
 }
 \description{
 Build the GitHub Pages site

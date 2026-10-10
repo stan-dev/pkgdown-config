@@ -32,6 +32,7 @@ jobs:
       NOT_CRAN: "true"
     permissions:
       contents: write
+      pull-requests: write
     steps:
       - uses: actions/checkout@v7
 
@@ -63,6 +64,16 @@ jobs:
           target-folder: pr/${{ github.event.pull_request.number }}
           clean: true
           force: false
+
+      - name: Comment preview link
+        if: >
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          message: |
+            Preview: ${{ env.PREVIEW_URL }}
+            Built from ${{ github.event.pull_request.head.sha }}
 
       - name: Deploy site
         if: github.event_name != 'pull_request'

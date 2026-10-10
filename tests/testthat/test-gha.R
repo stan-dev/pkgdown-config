@@ -22,3 +22,17 @@ test_that("build_gha_site() adds no overrides without a pull request", {
 
   expect_equal(build_gha_site("")$override, list())
 })
+
+test_that("build_gha_site() passes other arguments through to pkgdown", {
+  dir <- fake_package(c("url: https://example.org"))
+  withr::local_dir(dir)
+  local_mocked_bindings(
+    build_site_github_pages = function(...) list(...),
+    .package = "pkgdown"
+  )
+
+  args <- build_gha_site("", run_dont_run = FALSE, quiet = TRUE)
+
+  expect_false(args$run_dont_run)
+  expect_true(args$quiet)
+})
