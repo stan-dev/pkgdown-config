@@ -17,6 +17,6 @@ build_site(pkg = ".", ..., override = list())
 The result of \code{\link[pkgdown:build_site]{pkgdown::build_site()}}, invisibly.
 }
 \description{
-Writes the roadmap article when \code{roadmap: enabled: true} is set, then calls
+Adds the roadmap when \code{roadmap: enabled: true} is set, then calls
 \code{\link[pkgdown:build_site]{pkgdown::build_site()}} with all other arguments.
 }

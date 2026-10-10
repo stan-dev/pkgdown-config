@@ -1,18 +1,13 @@
-#' Print the roadmap
+#' Roadmap markdown
 #'
-#' Renders the roadmap as pandoc markdown: an introduction, a timeline of the
-#' latest release and the open milestones, one section per milestone with its
-#' issues, and a closing section. Milestones are ordered by version, next
-#' release first, and the text comes from the `roadmap` section of
-#' `_pkgdown.yml`. This is the body of the article written by [use_roadmap()].
+#' Renders the roadmap as markdown: an introduction, a timeline of the latest
+#' release and the open milestones, one section per milestone with its issues,
+#' and a closing section.
 #'
-#' @param pkg Path to the package, or a pkgdown object from
-#'   [pkgdown::as_pkgdown()]. The default is two levels up, which is the working
-#'   directory pkgdown renders articles from.
-#' @return `NULL`, invisibly. Called for its printed output.
-#' @export
-roadmap <- function(pkg = "../..") {
-  pkg <- pkgdown::as_pkgdown(pkg)
+#' @param pkg A pkgdown object from [pkgdown::as_pkgdown()].
+#' @return A character vector of markdown lines.
+#' @noRd
+roadmap <- function(pkg) {
   config <- pkg$meta$roadmap
   repo <- gsub("^https://github.com/|/$", "", pkg$repo$url$home)
   issues <- gh::gh(
@@ -43,7 +38,7 @@ roadmap <- function(pkg = "../..") {
   )
 
   fill <- function(text) roadmap_fill(text, pkg$package, repo)
-  cat(
+  c(
     sprintf("[Last updated: %s]{.rm-updated}", format(Sys.Date(), "%B %Y")),
     "",
     fill(config$intro),
@@ -59,44 +54,32 @@ roadmap <- function(pkg = "../..") {
       roadmap_milestone,
       config
     )),
-    fill(config$outro),
-    sep = "\n"
+    fill(config$outro)
   )
 }
 
 #' Write the roadmap article
 #'
-#' Writes `vignettes/articles/roadmap.Rmd`, which calls [roadmap()], when
-#' `roadmap: enabled: true` is set in `_pkgdown.yml`.
+#' Writes `vignettes/articles/roadmap.Rmd`, or `roadmap.qmd` when `format` is
+#' `qmd`, containing the roadmap markdown. Removes the other format's file.
 #'
-#' @param pkg Path to the package, or a pkgdown object from
-#'   [pkgdown::as_pkgdown()].
-#' @return The path of the article, invisibly, or `NULL` invisibly if the
-#'   roadmap is disabled.
-#' @export
-use_roadmap <- function(pkg = ".") {
-  pkg <- pkgdown::as_pkgdown(pkg)
-  config <- pkg$meta$roadmap
-  if (!isTRUE(config$enabled)) {
-    return(invisible())
+#' @param pkg A pkgdown object from [pkgdown::as_pkgdown()].
+#' @return The path of the article, invisibly.
+#' @noRd
+write_roadmap <- function(pkg) {
+  format <- pkg$meta$roadmap$format %||% "rmd"
+  if (!format %in% c("rmd", "qmd")) {
+    stop("`roadmap: format` must be `rmd` or `qmd`.", call. = FALSE)
   }
-  if (!identical(config$format, "rmd")) {
-    stop("Only `roadmap: format: rmd` is supported.", call. = FALSE)
-  }
-  path <- file.path(pkg$src_path, "vignettes", "articles", "roadmap.Rmd")
-  dir.create(dirname(path), recursive = TRUE, showWarnings = FALSE)
-  writeLines(
-    c(
-      "---",
-      "title: Roadmap",
-      "---",
-      "",
-      "```{r, echo=FALSE, message=FALSE, results='asis'}",
-      "pkgdownconfig::roadmap()",
-      "```"
-    ),
-    path
-  )
+  dir <- file.path(pkg$src_path, "vignettes", "articles")
+  dir.create(dir, recursive = TRUE, showWarnings = FALSE)
+  extensions <- c(rmd = "Rmd", qmd = "qmd")
+  unlink(file.path(
+    dir,
+    paste0("roadmap.", extensions[names(extensions) != format])
+  ))
+  path <- file.path(dir, paste0("roadmap.", extensions[[format]]))
+  writeLines(c("---", "title: Roadmap", "---", "", roadmap(pkg)), path)
   invisible(path)
 }
 
@@ -153,7 +136,10 @@ roadmap_timeline <- function(milestones, release, repo) {
 
   c(
     "",
-    sprintf("::::: {.rm-timeline style=\"--rm-stations:%d\"}", length(stations)),
+    sprintf(
+      "::::: {.rm-timeline style=\"--rm-stations:%d\"}",
+      length(stations)
+    ),
     unlist(stations),
     ":::::",
     ""
@@ -261,7 +247,8 @@ roadmap_milestone <- function(issues, config) {
 roadmap_excluded <- function(issue, exclude) {
   labels <- vapply(issue$labels, `[[`, "", "name")
   patterns <- utils::glob2rx(unlist(exclude$labels))
-  as.character(issue$number) %in% unlist(exclude$issues) ||
+  as.character(issue$number) %in%
+    unlist(exclude$issues) ||
     any(vapply(patterns, function(p) any(grepl(p, labels)), NA))
 }
 
@@ -275,7 +262,10 @@ roadmap_card <- function(card) {
   c(
     if (card$closed) ":::: {.rm-card .rm-closed}" else ":::: {.rm-card}",
     "",
-    paste("####", if (is.null(card$url)) title else sprintf("[%s](%s)", title, card$url)),
+    paste(
+      "####",
+      if (is.null(card$url)) title else sprintf("[%s](%s)", title, card$url)
+    ),
     "",
     trimws(card$description),
     "",

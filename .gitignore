@@ -5,4 +5,5 @@
 docs
 inst/doc
 **/.quarto/
-vignettes/articles/roadmap.Rmd
+vignettes/articles/roadmap.*
+vignettes/articles/roadmap_files/

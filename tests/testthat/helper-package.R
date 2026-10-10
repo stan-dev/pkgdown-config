@@ -15,6 +15,6 @@ fake_package <- function(config) {
   dir
 }
 
-article_path <- function(dir) {
-  file.path(dir, "vignettes", "articles", "roadmap.Rmd")
+article_path <- function(dir, ext) {
+  file.path(dir, "vignettes", "articles", paste0("roadmap.", ext))
 }

@@ -1,6 +1,6 @@
 #' Build a Stan pkgdown site
 #'
-#' Writes the roadmap article when `roadmap: enabled: true` is set, then calls
+#' Adds the roadmap when `roadmap: enabled: true` is set, then calls
 #' [pkgdown::build_site()] with all other arguments.
 #'
 #' @inheritParams pkgdown::build_site
@@ -9,33 +9,35 @@
 #' @return The result of [pkgdown::build_site()], invisibly.
 #' @export
 build_site <- function(pkg = ".", ..., override = list()) {
-  use_roadmap(pkg)
   pkgdown::build_site(roadmap_site(pkg), ..., override = override)
 }
 
-#' Add the roadmap to a pkgdown site
+#' Prepare a pkgdown site for the roadmap
 #'
-#' Adds `roadmap` to the navbar after `news`, and hides the roadmap article from
-#' the Articles index while keeping it built. Call it after [use_roadmap()] so
-#' the article is parsed. Used by [build_site()] and the GitHub Action.
+#' Writes the roadmap article, adds `roadmap` to the navbar after `news`, and
+#' hides the article from the Articles index while keeping it built. Used by
+#' [build_site()] and the GitHub Action.
 #'
-#' @inheritParams use_roadmap
+#' @param path Path to the package.
 #' @return A pkgdown object, unchanged when the roadmap is disabled.
-#' @export
-roadmap_site <- function(pkg = ".") {
-  pkg <- pkgdown::as_pkgdown(pkg)
+#' @noRd
+roadmap_site <- function(path = ".") {
+  pkg <- pkgdown::as_pkgdown(path)
   if (!isTRUE(pkg$meta$roadmap$enabled)) {
     return(pkg)
   }
+  write_roadmap(pkg)
+  pkg <- pkgdown::as_pkgdown(path)
   left <- pkg$meta$navbar$structure$left
   pkg$meta$navbar$structure$left <- append(
     left,
     "roadmap",
     match("news", left, nomatch = length(left))
   )
-  sections <- pkg$meta$articles %||% list(
-    list(title = "All vignettes", contents = list("starts_with(\"\")"))
-  )
+  sections <- pkg$meta$articles %||%
+    list(
+      list(title = "All vignettes", contents = list("starts_with(\"\")"))
+    )
   sections <- lapply(sections, function(section) {
     section$contents <- c(section$contents, "-starts_with('articles/roadmap')")
     section
