@@ -64,6 +64,7 @@ jobs:
           }
 
           pkgdown::build_site_github_pages(
+            pkg = pkg,
             lazy = FALSE,
             run_dont_run = TRUE,
             new_process = FALSE,
