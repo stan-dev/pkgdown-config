@@ -49,7 +49,6 @@ jobs:
       - name: Build site
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-          PKGDOWN_RUN_DONT_RUN: "TRUE"
         run: |
           override <- list()
 
@@ -74,7 +73,7 @@ jobs:
 
           pkgdown::build_site_github_pages(
             lazy = FALSE,
-            run_dont_run = Sys.getenv("PKGDOWN_RUN_DONT_RUN", "TRUE") == "TRUE",
+            run_dont_run = TRUE,
             new_process = TRUE,
             override = override
           )
