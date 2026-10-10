@@ -33,7 +33,7 @@ Released September 2026
 
 v3.0.0
 
-Next major release
+Next release
 
 [Milestone](https://github.com/stan-dev/pkgdown-config/milestone/1)
 
