@@ -16,14 +16,25 @@ test_that("build_site() builds the roadmap beside a site with its own articles",
     "      - articles/guide"
   ))
   dir.create(file.path(dir, "vignettes", "articles"), recursive = TRUE)
-  writeLines(c("---", "title: Guide", "---", "", "Text."), file.path(dir, "vignettes", "articles", "guide.Rmd"))
+  writeLines(
+    c("---", "title: Guide", "---", "", "Text."),
+    file.path(dir, "vignettes", "articles", "guide.Rmd")
+  )
 
-  pkgdownconfig::build_site(dir, preview = FALSE, new_process = FALSE, quiet = TRUE)
+  pkgdownconfig::build_site(
+    dir,
+    preview = FALSE,
+    new_process = FALSE,
+    quiet = TRUE
+  )
 
   docs <- file.path(dir, "docs")
   index <- readLines(file.path(docs, "articles", "index.html"))
   expect_true(file.exists(file.path(docs, "articles", "roadmap.html")))
   expect_true(any(grepl('href="guide.html"', index)))
   expect_false(any(grepl('href="roadmap.html"', index)))
-  expect_true(any(grepl('href="articles/roadmap.html"', readLines(file.path(docs, "index.html")))))
+  expect_true(any(grepl(
+    'href="articles/roadmap.html"',
+    readLines(file.path(docs, "index.html"))
+  )))
 })

@@ -80,7 +80,11 @@ write_roadmap <- function(pkg) {
   )
   if (file.exists(other)) {
     stop(
-      "`", other, "` exists alongside the ", format, " article. ",
+      "`",
+      other,
+      "` exists alongside the ",
+      format,
+      " article. ",
       "Remove one of them.",
       call. = FALSE
     )

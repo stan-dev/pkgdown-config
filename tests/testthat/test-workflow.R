@@ -11,5 +11,10 @@ test_that("use_pkgdown_gha() copies the workflow into the package", {
 
   use_pkgdown_gha(pkg)
 
-  expect_true(file.exists(file.path(pkg, ".github", "workflows", "pkgdown.yaml")))
+  expect_true(file.exists(file.path(
+    pkg,
+    ".github",
+    "workflows",
+    "pkgdown.yaml"
+  )))
 })

@@ -8,8 +8,14 @@ fake_milestone <- function(number, title, state = "open") {
   )
 }
 
-fake_issue <- function(number, title, milestone, state = "open",
-                       labels = character(), pull_request = FALSE) {
+fake_issue <- function(
+  number,
+  title,
+  milestone,
+  state = "open",
+  labels = character(),
+  pull_request = FALSE
+) {
   list(
     number = number,
     title = title,
