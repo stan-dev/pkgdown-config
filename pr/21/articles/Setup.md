@@ -111,7 +111,9 @@ If its not working, download
 [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to
 `/man/figures/logo.svg` and run
 [`pkgdown::build_favicons()`](https://pkgdown.r-lib.org/reference/build_favicons.html)
-once to build the favicons.
+once to build the favicons. The navbar logo falls back to the Stan logo
+shipped with the template, so a package without `man/figures/logo.svg`
+still builds; a logo in your package takes precedence.
 
 If you want the hex in your README (or if it isn’t working), make sure
 to edit the `README.md` or however you generate it. You can take a look
