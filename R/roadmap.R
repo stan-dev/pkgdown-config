@@ -1,8 +1,10 @@
 #' Print the roadmap
 #'
-#' Renders the issues of the open GitHub milestones of the package as pandoc
-#' markdown, one section per milestone. This is the body of the article written
-#' by [use_roadmap()].
+#' Renders the roadmap as pandoc markdown: an introduction, a timeline of the
+#' latest release and the open milestones, one section per milestone with its
+#' issues, and a closing section. Milestones are ordered by version, next
+#' release first, and the text comes from the `roadmap` section of
+#' `_pkgdown.yml`. This is the body of the article written by [use_roadmap()].
 #'
 #' @param pkg Path to the package, or a pkgdown object from
 #'   [pkgdown::as_pkgdown()]. The default is two levels up, which is the working
@@ -28,13 +30,38 @@ roadmap <- function(pkg = "../..") {
     },
     issues
   )
-  closed <- vapply(issues, function(issue) issue$state == "closed", NA)
-  numbers <- vapply(issues, `[[`, 0L, "number")
-  issues <- issues[order(closed, numbers)]
-  milestones <- vapply(issues, function(issue) issue$milestone$number, 0L)
+  milestones <- split(
+    issues,
+    vapply(issues, function(issue) issue$milestone$number, 0L)
+  )
+  titles <- vapply(milestones, function(m) m[[1]]$milestone$title, "")
+  versions <- numeric_version(sub("^v", "", titles), strict = FALSE)
+  versioned <- !is.na(versions)
+  release <- tryCatch(
+    gh::gh("/repos/{repo}/releases/latest", repo = repo),
+    error = function(e) NULL
+  )
 
-  sections <- lapply(split(issues, milestones), roadmap_milestone, config)
-  cat(unlist(sections), sep = "\n")
+  fill <- function(text) roadmap_fill(text, pkg$package, repo)
+  cat(
+    sprintf("[Last updated: %s]{.rm-updated}", format(Sys.Date(), "%B %Y")),
+    "",
+    fill(config$intro),
+    if (any(versioned)) {
+      roadmap_timeline(
+        milestones[versioned][order(versions[versioned])],
+        release,
+        repo
+      )
+    },
+    unlist(lapply(
+      milestones[order(is.na(versions), versions)],
+      roadmap_milestone,
+      config
+    )),
+    fill(config$outro),
+    sep = "\n"
+  )
 }
 
 #' Write the roadmap article
@@ -73,22 +100,153 @@ use_roadmap <- function(pkg = ".") {
   invisible(path)
 }
 
+#' Substitute the package placeholders in roadmap text
+#'
+#' @param text Text from the roadmap config.
+#' @param package The package name, for `{package}`.
+#' @param repo The repository as `owner/name`, for `{repo}`.
+#' @return `text` with the placeholders replaced.
+#' @noRd
+roadmap_fill <- function(text, package, repo) {
+  text <- gsub("{package}", package, text, fixed = TRUE)
+  gsub("{repo}", repo, text, fixed = TRUE)
+}
+
+#' Markdown for the release timeline
+#'
+#' @param milestones The issues grouped by milestone, in ascending version
+#'   order.
+#' @param release The latest release as returned by the GitHub API, or `NULL`.
+#' @param repo The repository as `owner/name`.
+#' @return A character vector of markdown lines.
+#' @noRd
+roadmap_timeline <- function(milestones, release, repo) {
+  current <- if (!is.null(release)) {
+    numeric_version(sub("^v", "", release$tag_name), strict = FALSE)
+  }
+  released <- if (!is.null(release)) {
+    list(roadmap_station(
+      release$tag_name,
+      format(as.Date(substr(release$published_at, 1, 10)), "Released %B %Y"),
+      "What's new",
+      "../news/index.html",
+      "rm-past"
+    ))
+  }
+  upcoming <- lapply(milestones, function(m) {
+    milestone <- m[[1]]$milestone
+    version <- numeric_version(sub("^v", "", milestone$title), strict = FALSE)
+    roadmap_station(
+      milestone$title,
+      roadmap_kind(version, current),
+      "Milestone",
+      milestone$html_url
+    )
+  })
+  beyond <- list(roadmap_station(
+    paste("Beyond", milestones[[length(milestones)]][[1]]$milestone$title),
+    "Planned improvements & your ideas are welcome",
+    "Open an issue",
+    sprintf("https://github.com/%s/issues/new", repo)
+  ))
+  stations <- c(released, unname(upcoming), beyond)
+
+  c(
+    "",
+    sprintf("::::: {.rm-timeline style=\"--rm-stations:%d\"}", length(stations)),
+    unlist(stations),
+    ":::::",
+    ""
+  )
+}
+
+#' Markdown for one timeline station
+#'
+#' @param title The station title.
+#' @param subtitle The line below the title.
+#' @param label The link text.
+#' @param href The link target.
+#' @param class Extra class for the station.
+#' @return A character vector of markdown lines.
+#' @noRd
+roadmap_station <- function(title, subtitle, label, href, class = NULL) {
+  c(
+    paste0(":::: {", paste(c(".rm-station", class), collapse = " ."), "}"),
+    sprintf("[%s]{.rm-station-title}", title),
+    "",
+    sprintf("[%s]{.rm-station-sub}", subtitle),
+    "",
+    sprintf("[%s](%s){.rm-station-sub}", label, href),
+    "::::",
+    ""
+  )
+}
+
+#' Describe how a version follows the current release
+#'
+#' @param version The milestone version.
+#' @param current The latest released version, or `NULL`.
+#' @return `"Next major release"`, `"Next minor release"`,
+#'   `"Next patch release"` or `"Upcoming release"`.
+#' @noRd
+roadmap_kind <- function(version, current) {
+  if (is.null(current) || is.na(version) || is.na(current)) {
+    return("Upcoming release")
+  }
+  next_version <- c(unlist(version), 0, 0)
+  current <- c(unlist(current), 0, 0)
+  if (next_version[1] > current[1]) {
+    "Next major release"
+  } else if (next_version[2] > current[2]) {
+    "Next minor release"
+  } else {
+    "Next patch release"
+  }
+}
+
 #' Markdown for one milestone
 #'
-#' @param issues The issues of a single milestone, in display order.
+#' Cards are the issues followed by the custom `cards` of the milestone
+#' override, ordered by `order` (the issue number by default), closed last.
+#'
+#' @param issues The issues of a single milestone.
 #' @param config The `roadmap` section of the merged pkgdown config.
 #' @return A character vector of markdown lines.
 #' @noRd
 roadmap_milestone <- function(issues, config) {
   milestone <- issues[[1]]$milestone
   override <- config$overrides$milestones[[as.character(milestone$number)]]
+  cards <- c(
+    lapply(issues, function(issue) {
+      card <- config$overrides$issues[[as.character(issue$number)]]
+      list(
+        title = card$title %||% issue$title,
+        description = card$description,
+        url = issue$html_url,
+        closed = issue$state == "closed",
+        order = card$order %||% issue$number
+      )
+    }),
+    lapply(override$cards, function(card) {
+      list(
+        title = card$title,
+        description = card$description,
+        url = card$url,
+        closed = FALSE,
+        order = card$order %||% Inf
+      )
+    })
+  )
+  closed <- vapply(cards, function(card) card$closed, NA)
+  position <- vapply(cards, function(card) card$order, 0)
+
   c(
     paste("##", override$title %||% milestone$title),
     "",
     trimws(override$description %||% milestone$description),
     "",
     "::::: {.rm-cards}",
-    unlist(lapply(issues, roadmap_card, config$overrides$issues)),
+    unlist(lapply(cards[order(closed, position)], roadmap_card)),
     ":::::",
     ""
   )
@@ -107,25 +265,19 @@ roadmap_excluded <- function(issue, exclude) {
     any(vapply(patterns, function(p) any(grepl(p, labels)), NA))
 }
 
-#' Markdown for one issue card
+#' Markdown for one card
 #'
-#' @param issue An issue as returned by the GitHub API.
-#' @param overrides The `overrides.issues` section of the roadmap config.
+#' @param card A list with `title`, `description`, `url` and `closed`.
 #' @return A character vector of markdown lines.
 #' @noRd
-roadmap_card <- function(issue, overrides) {
-  closed <- issue$state == "closed"
+roadmap_card <- function(card) {
+  title <- paste0(if (card$closed) "✓ ", card$title)
   c(
-    if (closed) ":::: {.rm-card .rm-closed}" else ":::: {.rm-card}",
+    if (card$closed) ":::: {.rm-card .rm-closed}" else ":::: {.rm-card}",
     "",
-    sprintf(
-      "#### [%s%s](%s)",
-      if (closed) "✓ " else "",
-      issue$title,
-      issue$html_url
-    ),
+    paste("####", if (is.null(card$url)) title else sprintf("[%s](%s)", title, card$url)),
     "",
-    trimws(overrides[[as.character(issue$number)]]$description),
+    trimws(card$description),
     "",
     "::::",
     ""

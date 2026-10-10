@@ -15,7 +15,9 @@ directory pkgdown renders articles from.}
 \code{NULL}, invisibly. Called for its printed output.
 }
 \description{
-Renders the issues of the open GitHub milestones of the package as pandoc
-markdown, one section per milestone. This is the body of the article written
-by \code{\link[=use_roadmap]{use_roadmap()}}.
+Renders the roadmap as pandoc markdown: an introduction, a timeline of the
+latest release and the open milestones, one section per milestone with its
+issues, and a closing section. Milestones are ordered by version, next
+release first, and the text comes from the \code{roadmap} section of
+\verb{_pkgdown.yml}. This is the body of the article written by \code{\link[=use_roadmap]{use_roadmap()}}.
 }
