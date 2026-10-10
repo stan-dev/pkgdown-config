@@ -74,10 +74,17 @@ write_roadmap <- function(pkg) {
   dir <- file.path(pkg$src_path, "vignettes", "articles")
   dir.create(dir, recursive = TRUE, showWarnings = FALSE)
   extensions <- c(rmd = "Rmd", qmd = "qmd")
-  unlink(file.path(
+  other <- file.path(
     dir,
     paste0("roadmap.", extensions[names(extensions) != format])
-  ))
+  )
+  if (file.exists(other)) {
+    stop(
+      "`", other, "` exists alongside the ", format, " article. ",
+      "Remove one of them.",
+      call. = FALSE
+    )
+  }
   path <- file.path(dir, paste0("roadmap.", extensions[[format]]))
   writeLines(c("---", "title: Roadmap", "---", "", roadmap_markdown(pkg)), path)
   invisible(path)

@@ -44,3 +44,14 @@ test_that("roadmap_site() adds the navbar link only when enabled", {
     c("home", "news", "stan")
   )
 })
+
+test_that("roadmap_site() refuses to write beside an article in the other format", {
+  local_mocked_bindings(roadmap_markdown = function(pkg) "## Stub")
+  pkg <- fake_package(c("roadmap:", "  enabled: true", "  format: qmd"))
+  dir.create(file.path(pkg, "vignettes", "articles"), recursive = TRUE)
+  writeLines("kept", article_path(pkg, "Rmd"))
+
+  expect_error(roadmap_site(pkg), "Remove one of them")
+  expect_equal(readLines(article_path(pkg, "Rmd")), "kept")
+  expect_false(file.exists(article_path(pkg, "qmd")))
+})
