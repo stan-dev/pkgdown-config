@@ -5,6 +5,10 @@ template:
   # don't use mathml
   math-rendering: mathjax
 
+  includes:
+    head: |
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" referrerpolicy="no-referrer">
+
   # syntax highlighting
   theme: tango
   theme-dark: nord

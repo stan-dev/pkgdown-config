@@ -16,9 +16,9 @@ Imports:
     gh,
     utils
 Suggests: 
-    testthat (>= 3.0.0),
     knitr,
-    quarto
+    quarto,
+    testthat (>= 3.0.0)
 VignetteBuilder: 
     quarto
 Config/testthat/edition: 3

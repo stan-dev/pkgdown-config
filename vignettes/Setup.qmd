@@ -107,7 +107,7 @@ You could also configure the `pkgdown` GHA to only run when [vignettes are modif
 
 ## Common Issues
 
-If for some reason the new favicons don't get copied over, check if you are defining favicons in `pkgdown/favicons`. In most cases you can delete everything in that folder--just delete the logo and favicons if you are worried. The template will hook in the correct favicon and logo. If its not working, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to `/man/figures/logo.svg` and run `pkgdown::build_favicons()` once to build the favicons.
+If for some reason the new favicons don't get copied over, check if you are defining favicons in `pkgdown/favicons`. In most cases you can delete everything in that folder--just delete the logo and favicons if you are worried. The template will hook in the correct favicon and logo. If its not working, download [logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to `/man/figures/logo.svg` and run `pkgdown::build_favicons()` once to build the favicons. The navbar logo falls back to the Stan logo shipped with the template, so a package without `man/figures/logo.svg` still builds; a logo in your package takes precedence.
 <!-- Note that logo should also be copied into your build directory and will be hooked in automatically. If you can't find the logo, you can download it from [here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg) and follow the same steps above. -->
 
 If you want the hex in your README (or if it isn't working), make sure to edit the `README.md` or however you generate it. You can take a look at this package's to get an idea of what you need to do (repeated below):
