@@ -15,14 +15,18 @@ test_that("use_roadmap() rejects formats other than rmd", {
   expect_error(use_roadmap(pkg), "rmd")
 })
 
-test_that("roadmap_override() adds the navbar link only when enabled", {
+test_that("roadmap_site() adds the navbar link only when enabled", {
   navbar <- c("navbar:", "  structure:", "    left: [home, news, stan]")
-  enabled <- fake_package(c(navbar, "roadmap:", "  enabled: true"))
+  enabled <- fake_package(c(navbar, "roadmap:", "  enabled: true", "  format: rmd"))
   disabled <- fake_package(c(navbar, "roadmap:", "  enabled: false"))
+  use_roadmap(enabled)
 
   expect_equal(
-    roadmap_override(enabled)$navbar$structure$left,
+    roadmap_site(enabled)$meta$navbar$structure$left,
     c("home", "news", "roadmap", "stan")
   )
-  expect_equal(roadmap_override(disabled), list())
+  expect_equal(
+    roadmap_site(disabled)$meta$navbar$structure$left,
+    c("home", "news", "stan")
+  )
 })

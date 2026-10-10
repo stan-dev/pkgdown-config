@@ -11,14 +11,12 @@ build_site(pkg = ".", ..., override = list())
 
 \item{...}{Passed on to \code{\link[pkgdown:build_site]{pkgdown::build_site()}}.}
 
-\item{override}{Passed on to \code{\link[pkgdown:build_site]{pkgdown::build_site()}}, merged over the
-navbar override from \code{roadmap_override()}.}
+\item{override}{Passed on to \code{\link[pkgdown:build_site]{pkgdown::build_site()}}.}
 }
 \value{
 The result of \code{\link[pkgdown:build_site]{pkgdown::build_site()}}, invisibly.
 }
 \description{
-Writes the roadmap article and adds the roadmap to the navbar when
-\code{roadmap: enabled: true} is set, then calls \code{\link[pkgdown:build_site]{pkgdown::build_site()}} with all
-other arguments.
+Writes the roadmap article when \code{roadmap: enabled: true} is set, then calls
+\code{\link[pkgdown:build_site]{pkgdown::build_site()}} with all other arguments.
 }

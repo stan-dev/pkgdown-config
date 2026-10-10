@@ -49,9 +49,9 @@ jobs:
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
         run: |
-          pkg <- pkgdown::as_pkgdown(".")
-          pkgdownconfig::use_roadmap(pkg)
-          override <- pkgdownconfig::roadmap_override(pkg)
+          pkgdownconfig::use_roadmap(".")
+          pkg <- pkgdownconfig::roadmap_site(".")
+          override <- list()
 
           pr_number <- Sys.getenv("PR_NUMBER")
           if (nzchar(pr_number)) {

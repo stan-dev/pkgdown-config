@@ -8,3 +8,7 @@ development:
 
 roadmap:
   enabled: true
+  overrides:
+    issues:
+      "16":
+        description: Support declaratively building a Roadmap page from milestones and issues.

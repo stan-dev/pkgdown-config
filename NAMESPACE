@@ -2,6 +2,6 @@
 
 export(build_site)
 export(roadmap)
-export(roadmap_override)
+export(roadmap_site)
 export(use_pkgdown_gha)
 export(use_roadmap)
