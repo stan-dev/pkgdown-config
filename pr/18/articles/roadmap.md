@@ -50,7 +50,10 @@ Planned improvements & your ideas are welcome
 Support declaratively building a Roadmap page from milestones and
 issues.
 
-#### [Func to use pkgdown GHA](https://github.com/stan-dev/pkgdown-config/issues/19)
+#### [Function to Write Default `pkgdown` GitHub Actions](https://github.com/stan-dev/pkgdown-config/issues/19)
+
+Writes this package’s `pkgdown` GitHub Action into a Stan package, so
+every site builds PR previews the same way.
 
 ## Get involved
 
