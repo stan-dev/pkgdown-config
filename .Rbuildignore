@@ -5,6 +5,3 @@
 ^vignettes/\.quarto$
 ^vignettes/*_files$
 ^LICENSE\.md$
-^jarl\.toml$
-^[.]?air[.]toml$
-^\.vscode$
