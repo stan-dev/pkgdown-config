@@ -48,3 +48,41 @@ roadmap_site <- function(path = ".") {
   )
   pkg
 }
+
+#' Build the site for GitHub Pages
+#'
+#' Used by the GitHub Action. Prepares the roadmap, then builds the site. With a
+#' pull request number, the site is built under `/pr/<number>` and not indexed.
+#'
+#' @param pr_number The pull request number, or an empty string.
+#' @return The result of [pkgdown::build_site_github_pages()], invisibly.
+#' @noRd
+build_gha_site <- function(pr_number = Sys.getenv("PR_NUMBER")) {
+  pkg <- roadmap_site(".")
+  if (nzchar(pr_number) && pkg$development$mode == "devel") {
+    Sys.setenv(PKGDOWN_DEV_MODE = "unreleased")
+  }
+  pkgdown::build_site_github_pages(
+    pkg = pkg,
+    lazy = FALSE,
+    run_dont_run = TRUE,
+    new_process = TRUE,
+    override = gha_override(pkg, pr_number)
+  )
+}
+
+#' Build overrides for a pull request preview
+#'
+#' @param pkg A pkgdown object.
+#' @param pr_number The pull request number, or an empty string.
+#' @return A pkgdown override list, empty when there is no pull request.
+#' @noRd
+gha_override <- function(pkg, pr_number) {
+  if (!nzchar(pr_number)) {
+    return(list())
+  }
+  list(
+    url = paste0(pkg$meta$url, "/pr/", pr_number),
+    template = list(params = list(noindex = TRUE))
+  )
+}

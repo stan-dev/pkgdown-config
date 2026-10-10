@@ -48,27 +48,7 @@ jobs:
       - name: Build site
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          pkg <- pkgdownconfig:::roadmap_site(".")
-          override <- list()
-
-          pr_number <- Sys.getenv("PR_NUMBER")
-          if (nzchar(pr_number)) {
-            if (pkg$development$mode == "devel") {
-              Sys.setenv(PKGDOWN_DEV_MODE = "unreleased")
-            }
-
-            override$url <- paste0(pkg$meta$url, "/pr/", pr_number)
-            override$template$params$noindex <- TRUE
-          }
-
-          pkgdown::build_site_github_pages(
-            pkg = pkg,
-            lazy = FALSE,
-            run_dont_run = TRUE,
-            new_process = TRUE,
-            override = override
-          )
+        run: pkgdownconfig:::build_gha_site()
         shell: Rscript {0}
 
       - name: Deploy PR preview
