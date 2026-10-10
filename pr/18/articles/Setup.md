@@ -120,10 +120,14 @@ build, so add it to `.gitignore`. For local builds use
 [`pkgdownconfig::build_site()`](https://mc-stan.org/pkgdown-config/pr/18/reference/build_site.md)
 in place of
 [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html);
-it does the same and forwards all arguments. The roadmap is fetched from
-the GitHub API at build time. The GHA uses its own token; for local
-builds set a `GITHUB_PAT`, otherwise GitHub’s unauthenticated limit of
-60 requests per hour applies and the build can fail.
+it does the same and forwards all arguments. Plain
+[`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html)
+does not add the navbar link or hide the article, so with the roadmap
+enabled it fails on sites that define their own `articles` sections. The
+roadmap is fetched from the GitHub API at build time. The GHA uses its
+own token; for local builds set a `GITHUB_PAT`, otherwise GitHub’s
+unauthenticated limit of 60 requests per hour applies and the build can
+fail.
 
 ## GHA
 

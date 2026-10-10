@@ -47,6 +47,11 @@ Planned improvements & your ideas are welcome
 
 #### [Roadmap](https://github.com/stan-dev/pkgdown-config/issues/16)
 
+Support declaratively building a Roadmap page from milestones and
+issues.
+
+#### [Func to use pkgdown GHA](https://github.com/stan-dev/pkgdown-config/issues/19)
+
 ## Get involved
 
 Contributions are welcome! Here are a few ways to join in:
