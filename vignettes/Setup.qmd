@@ -86,13 +86,11 @@ reference:
 
 ## GHA
 
-Copy [this package's GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml) to `.github/workflows/pkgdown.yaml`. It builds `main` to `/dev` and releases to the root. Pull requests with the `build-website` label get a preview at `/pr/<number>` and a comment with its URL and commit. Forks can't deploy previews, so their PRs are skipped.
+You can run `pkgdownconfig::use_pkgdown_gha()` to copy in a good default template which you should edit as needed. You could also copy [this package's GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml) directly to `.github/workflows/pkgdown.yaml`. It builds `main` to `/dev` and releases to the root. Pull requests with the `build-website` label get a preview at `/pr/<number>` and a comment with its URL and commit. Forks can't deploy previews, so their PRs are skipped.
 
 ## Common Issues
 
 The navbar logo falls back to the Stan logo shipped with the template, so a package without `man/figures/logo.svg` still builds; a logo in your package takes precedence.
-
-<!-- Note that logo should also be copied into your build directory and will be hooked in automatically. If you can't find the logo, you can download it from [here](https://github.com/stan-dev/logos/blob/master/hex_stickers/stan_hex_cut.svg) and follow the same steps above. -->
 
 If you want the hex in your README (or if it isn't working), make sure to edit the `README.md` or however you generate it. You can take a look at this package's to get an idea of what you need to do (repeated below):
 
