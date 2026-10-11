@@ -1,11 +1,14 @@
 # pkgdownconfig (development version)
 
-* PR previews comment their URL and commit.
-* `PKGDOWN_RUN_DONT_RUN` sets `run_dont_run` for the build.
+* PR previews build only when the PR has the `build-website` label, and comment their URL and commit.
+* PR previews are removed when the PR closes.
+* The Other Packages menu includes `priorsense`.
+* The navbar key `otherpkgs` is now `pkgs`. Update any navbar structure that uses it.
+* MathJax is updated to 4.1.3.
 
 # pkgdownconfig 2.6.0
 
-* Vignettes renamed to articles, with an Articles index.
+* Vignettes renamed to Articles.
 * PR previews are built and deployed.
 
 # pkgdownconfig 2.5.0
@@ -14,11 +17,11 @@
 
 # pkgdownconfig 2.4.0
 
-* Async config by default, and no logo error.
+* Fixed a pkgdown error for the logo.
 
 # pkgdownconfig 2.3.0
 
-* Updated MathJax.
+* Updated MathJax to 4.0.0.
 
 # pkgdownconfig 2.2.0
 
