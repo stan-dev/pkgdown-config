@@ -25,36 +25,6 @@ reports, questions, and requests as they come in. The roadmap describes
 our current intentions, not fixed commitments. Priorities can shift, and
 releases have no fixed dates. We update this page as our plans change.
 
-v2.6.0
-
-Released September 2026
-
-[What’s new](https://mc-stan.org/pkgdown-config/pr/18/news/index.md)
-
-v3.0.0
-
-Next release
-
-[Milestone](https://github.com/stan-dev/pkgdown-config/milestone/1)
-
-Beyond v3.0.0
-
-Planned improvements & your ideas are welcome
-
-[Open an issue](https://github.com/stan-dev/pkgdown-config/issues/new)
-
-## v3.0.0
-
-#### [Roadmap](https://github.com/stan-dev/pkgdown-config/issues/16)
-
-Support declaratively building a Roadmap page from milestones and
-issues.
-
-#### [Function to Write Default `pkgdown` GitHub Actions](https://github.com/stan-dev/pkgdown-config/issues/19)
-
-Writes this package’s `pkgdown` GitHub Action into a Stan package, so
-every site builds PR previews the same way.
-
 ## Get involved
 
 Contributions are welcome! Here are a few ways to join in:
