@@ -89,12 +89,15 @@ reference:
 
 ## GHA
 
-Copy [this package’s
+You can run
+[`pkgdownconfig::use_pkgdown_gha()`](https://mc-stan.org/pkgdown-config/pr/21/reference/use_pkgdown_gha.md)
+to copy in a good default template which you should edit as needed. You
+could also copy [this package’s
 GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml)
-to `.github/workflows/pkgdown.yaml`. It builds `main` to `/dev` and
-releases to the root. Pull requests with the `build-website` label get a
-preview at `/pr/<number>` and a comment with its URL and commit. Forks
-can’t deploy previews, so their PRs are skipped.
+directly to `.github/workflows/pkgdown.yaml`. It builds `main` to `/dev`
+and releases to the root. Pull requests with the `build-website` label
+get a preview at `/pr/<number>` and a comment with its URL and commit.
+Forks can’t deploy previews, so their PRs are skipped.
 
 ## Common Issues
 
