@@ -89,31 +89,18 @@ reference:
 
 ## GHA
 
-You can use the default GHA, or you can copy [this package’s
-GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml).
-This GHA deploys `pkgdown` sites on (non-fork[^1]) PRs to unique URLs
-(`/prs/$PR-NUMBER`). This means that PRs would have preview sites,
-`/dev` would track `main`, and the main site would track releases.
-
-You could also configure the `pkgdown` GHA to only run when [vignettes
-are
-modified](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow#using-filters-to-target-specific-paths-for-pull-request-or-push-events),
-or only have the `workflow_dispatch` trigger so that you can build PR’s
-`pkgdown` sites as needed.
+Copy [this package’s
+GHA](https://github.com/stan-dev/pkgdown-config/blob/main/.github/workflows/pkgdown.yaml)
+to `.github/workflows/pkgdown.yaml`. It builds `main` to `/dev` and
+releases to the root. Pull requests with the `build-website` label get a
+preview at `/pr/<number>` and a comment with its URL and commit. Forks
+can’t deploy previews, so their PRs are skipped.
 
 ## Common Issues
 
-If for some reason the new favicons don’t get copied over, check if you
-are defining favicons in `pkgdown/favicons`. In most cases you can
-delete everything in that folder–just delete the logo and favicons if
-you are worried. The template will hook in the correct favicon and logo.
-If its not working, download
-[logo.svg](https://github.com/stan-dev/logos/blob/master/logo.svg) to
-`/man/figures/logo.svg` and run
-[`pkgdown::build_favicons()`](https://pkgdown.r-lib.org/reference/build_favicons.html)
-once to build the favicons. The navbar logo falls back to the Stan logo
-shipped with the template, so a package without `man/figures/logo.svg`
-still builds; a logo in your package takes precedence.
+The navbar logo falls back to the Stan logo shipped with the template,
+so a package without `man/figures/logo.svg` still builds; a logo in your
+package takes precedence.
 
 If you want the hex in your README (or if it isn’t working), make sure
 to edit the `README.md` or however you generate it. You can take a look
@@ -126,6 +113,3 @@ below):
 
 For any further concerns/help/anything, open an issue and/or ping
 `@Visruth` on the Stan Slack.
-
-[^1]: PRs from forks typically get a read-only `GITHUB_TOKEN` for
-    security, so they wouldn’t be able to deploy the site.
