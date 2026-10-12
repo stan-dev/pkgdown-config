@@ -22,6 +22,7 @@ roadmap_markdown <- function(pkg) {
     state = "all",
     .limit = Inf
   )
+  message(length(issues), " issues returned for ", repo)
   excluded_labels <- utils::glob2rx(unlist(config$exclude$labels))
   excluded_issues <- unlist(config$exclude$issues)
   issues <- Filter(
