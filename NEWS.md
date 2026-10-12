@@ -1,5 +1,6 @@
 # pkgdownconfig (development version)
 
+* Adds a roadmap page from GitHub milestones and issues, enabled with `roadmap: enabled: true`.
 * PR previews build only when the PR has the `build-website` label, and comment their URL and commit.
 * PR previews are removed when the PR closes.
 * The Other Packages menu includes `priorsense`.

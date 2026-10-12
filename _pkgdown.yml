@@ -5,3 +5,13 @@ template:
 
 development:
   mode: auto
+
+roadmap:
+  enabled: true
+  overrides:
+    issues:
+      "16":
+        description: Support declaratively building a Roadmap page from milestones and issues.
+      "19":
+        title: Function to Write Default `pkgdown` GitHub Actions
+        description: Writes this package's `pkgdown` GitHub Action into a Stan package, so every site builds PR previews the same way.

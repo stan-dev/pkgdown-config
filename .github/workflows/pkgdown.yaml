@@ -33,6 +33,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      issues: read
     steps:
       - uses: actions/checkout@v7
 
@@ -49,34 +50,7 @@ jobs:
       - name: Build site
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: |
-          override <- list()
-
-          pr_number <- Sys.getenv("PR_NUMBER")
-          if (nzchar(pr_number)) {
-            pkg <- pkgdown::as_pkgdown(".")
-
-            if (pkg$development$mode == "devel") {
-              Sys.setenv(PKGDOWN_DEV_MODE = "unreleased")
-            }
-
-            preview <- paste0(pkg$meta$url, "/pr/", pr_number)
-            cat(paste0("PREVIEW_URL=", preview, "\n"), file = Sys.getenv("GITHUB_ENV"), append = TRUE)
-
-            override <- list(
-              url = preview,
-              template = list(
-                params = list(noindex = TRUE)
-              )
-            )
-          }
-
-          pkgdown::build_site_github_pages(
-            lazy = FALSE,
-            run_dont_run = TRUE,
-            new_process = TRUE,
-            override = override
-          )
+        run: pkgdownconfig::build_gha_site()
         shell: Rscript {0}
 
       - name: Deploy PR preview
