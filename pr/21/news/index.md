@@ -2,6 +2,8 @@
 
 ## pkgdownconfig (development version)
 
+## pkgdownconfig 3.0.0
+
 - PR previews build only when the PR has the `build-website` label, and
   comment their URL and commit.
 - PR previews are removed when the PR closes.
